@@ -103,7 +103,7 @@ export function AdvancedLotsMapPage(): React.ReactElement {
         <select
           value={developmentId}
           onChange={(e) => setDevelopmentId(e.target.value)}
-          style={{ padding: '0.5rem 0.75rem', border: '1px solid #d1d5db', borderRadius: 6, fontSize: '0.9rem', minWidth: 240 }}
+          style={{ minWidth: 240 }}
         >
           <option value="">— Seleccionar barrio —</option>
           {developments.map((d) => (
