@@ -151,7 +151,7 @@ export function AdvancedLotsMapPage(): React.ReactElement {
             </div>
           </div>
           <div style={{ width: 260, flexShrink: 0 }}>
-            <div style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.5rem', color: '#374151' }}>
+            <div style={{ fontWeight: 600, fontSize: '0.85rem', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>
               Lotes sin ubicar
             </div>
             <UnplacedLotsPanel lots={data.unplacedLots || []} />
