@@ -160,6 +160,7 @@ function LotsMapSummary({ data }: { data: LotsMapResponse }): React.ReactElement
     ['Reservas por vencer', summary.reservationsExpiringSoon],
     ['Vendidos', summary.sold],
     ['Vendidos con mora', summary.soldWithOverdue],
+    ['Escriturados', summary.deeded],
     ['Bloqueados', summary.blocked],
     ['Cancelados', summary.cancelled],
     ['Saldo pendiente', <CurrencyTotals key="pending" totals={summary.pendingBalanceByCurrency} />],
