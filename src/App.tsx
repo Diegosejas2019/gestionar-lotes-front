@@ -242,11 +242,16 @@ function AdminApp(): React.ReactElement {
             </div>
           </div>
           <nav className="nav">
-            {navItems.map(({ to, label, icon: Icon }) => (
-              <NavLink key={to} to={to}>
-                <Icon size={18} aria-hidden="true" />
-                {label}
-              </NavLink>
+            {navGroups.map(({ label, items }) => (
+              <div key={label} className="nav-group">
+                <span className="nav-group-label">{label}</span>
+                {items.map(({ to, label: itemLabel, icon: Icon }) => (
+                  <NavLink key={to} to={to}>
+                    <Icon size={16} aria-hidden="true" />
+                    {itemLabel}
+                  </NavLink>
+                ))}
+              </div>
             ))}
           </nav>
         </aside>
