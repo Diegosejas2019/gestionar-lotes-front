@@ -36,8 +36,9 @@ function ShapeDetail({ shape, onClose }: { shape: EnrichedMapShape; onClose: () 
 
 export function AdvancedLotsMapPage(): React.ReactElement {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [developments, setDevelopments] = useState<Development[]>([]);
-  const [developmentId, setDevelopmentId] = useState('');
+  const [developmentId, setDevelopmentId] = useState(searchParams.get('developmentId') || '');
   const [data, setData] = useState<AdvancedMapData | null>(null);
   const [selectedShape, setSelectedShape] = useState<EnrichedMapShape | null>(null);
   const [loadingDevs, setLoadingDevs] = useState(true);
