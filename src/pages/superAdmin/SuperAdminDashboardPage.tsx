@@ -41,34 +41,36 @@ export function SuperAdminDashboardPage(): React.ReactElement {
   return (
     <div>
       <PageHeader title="Panel Super Admin" />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+      <div className="super-admin-grid">
         {cards.map(({ label, value, color }) => (
-          <div key={label} style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '1rem', borderTop: `3px solid ${color}` }}>
-            <div style={{ fontSize: '0.8rem', color: '#6b7280', marginBottom: 4 }}>{label}</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 700, color }}>{value}</div>
+          <div key={label} className="super-admin-card" style={{ borderTop: `3px solid ${color}` }}>
+            <div className="super-admin-card__label">{label}</div>
+            <div className="super-admin-card__value" style={{ color }}>{value}</div>
           </div>
         ))}
       </div>
 
       {dashboard.orgsByPlan.length > 0 && (
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '1rem' }}>
+        <div className="super-admin-table-panel">
           <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem' }}>Organizaciones por plan</h3>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
-                <th style={{ textAlign: 'left', padding: '0.5rem', fontWeight: 600 }}>Plan</th>
-                <th style={{ textAlign: 'right', padding: '0.5rem', fontWeight: 600 }}>Orgs</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dashboard.orgsByPlan.map(({ planName, count }) => (
-                <tr key={planName} style={{ borderBottom: '1px solid #f3f4f6' }}>
-                  <td style={{ padding: '0.5rem' }}>{planName}</td>
-                  <td style={{ padding: '0.5rem', textAlign: 'right' }}>{count}</td>
+          <div className="table-wrap">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Plan</th>
+                  <th style={{ textAlign: 'right' }}>Orgs</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {dashboard.orgsByPlan.map(({ planName, count }) => (
+                  <tr key={planName}>
+                    <td>{planName}</td>
+                    <td style={{ textAlign: 'right' }}>{count}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
