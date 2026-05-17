@@ -145,7 +145,7 @@ export function AdvancedLotsMapPage(): React.ReactElement {
                 onShapeClick={(shape) => setSelectedShape(shape)}
               />
             </div>
-            <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: '#6b7280' }}>
+            <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               {data.layout.name}
               {data.layout.description ? ` — ${data.layout.description}` : ''}
             </div>
