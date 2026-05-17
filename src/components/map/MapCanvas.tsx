@@ -141,10 +141,10 @@ export function MapCanvas({
         )}
       </svg>
 
-      <div style={{ position: 'absolute', bottom: 8, right: 8, display: 'flex', gap: 4 }}>
-        <button onClick={() => setScale((s) => Math.min(4, s + 0.2))} style={{ padding: '4px 8px', background: '#fff', border: '1px solid #d1d5db', borderRadius: 4, cursor: 'pointer', fontSize: '1rem' }}>+</button>
-        <button onClick={() => setScale(1)} style={{ padding: '4px 8px', background: '#fff', border: '1px solid #d1d5db', borderRadius: 4, cursor: 'pointer', fontSize: '0.75rem' }}>1:1</button>
-        <button onClick={() => setScale((s) => Math.max(0.2, s - 0.2))} style={{ padding: '4px 8px', background: '#fff', border: '1px solid #d1d5db', borderRadius: 4, cursor: 'pointer', fontSize: '1rem' }}>−</button>
+      <div className="map-zoom-controls">
+        <button type="button" className="map-zoom-btn" onClick={() => setScale((s) => Math.min(4, s + 0.2))}>+</button>
+        <button type="button" className="map-zoom-btn" style={{ fontSize: '0.75rem' }} onClick={() => setScale(1)}>1:1</button>
+        <button type="button" className="map-zoom-btn" onClick={() => setScale((s) => Math.max(0.2, s - 0.2))}>−</button>
       </div>
     </div>
   );
