@@ -136,7 +136,7 @@ export function MapCanvas({
             y={Math.min(drawStart.y, drawCurrent.y)}
             width={Math.abs(drawCurrent.x - drawStart.x)}
             height={Math.abs(drawCurrent.y - drawStart.y)}
-            fill="rgba(37,99,235,0.2)" stroke="#2563eb" strokeWidth={2 / scale} strokeDasharray={`${6 / scale}`}
+            style={{ fill: 'var(--primary-glow)', stroke: 'var(--primary)' }} strokeWidth={2 / scale} strokeDasharray={`${6 / scale}`}
           />
         )}
       </svg>
