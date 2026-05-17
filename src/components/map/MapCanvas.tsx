@@ -90,7 +90,8 @@ export function MapCanvas({
   return (
     <div
       ref={containerRef}
-      style={{ overflow: 'hidden', position: 'relative', background: '#f3f4f6', borderRadius: 8, border: '1px solid #e5e7eb', width: '100%', height: 520 }}
+      className="map-canvas-container"
+      style={{ overflow: 'hidden', position: 'relative', width: '100%', height: 520 }}
       onWheel={handleWheel}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
