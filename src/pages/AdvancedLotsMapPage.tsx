@@ -21,7 +21,7 @@ function ShapeDetail({ shape, onClose }: { shape: EnrichedMapShape; onClose: () 
           {shape.block ? <p><strong>Manzana:</strong> {shape.block}</p> : null}
           {shape.surface ? <p><strong>Superficie:</strong> {shape.surface} m²</p> : null}
           {shape.price != null ? <p><strong>Precio:</strong> {shape.currency} {shape.price.toLocaleString('es-AR')}</p> : null}
-          {shape.visualStatus ? <p><strong>Estado:</strong> {lotVisualStatusLabels[shape.visualStatus] ?? shape.visualStatus}</p> : null}
+          {shape.visualStatus ? <p><strong>Estado:</strong> {lotVisualStatusLabels[shape.visualStatus as LotVisualStatus] ?? shape.visualStatus}</p> : null}
           {shape.buyerName ? <p><strong>Comprador:</strong> {shape.buyerName}</p> : null}
           {shape.hasOverdueInstallments ? <p className="text--danger">Tiene cuotas vencidas</p> : null}
         </div>
