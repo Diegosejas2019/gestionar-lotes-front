@@ -1,4 +1,4 @@
-import { apiDelete, apiGet, apiPost, apiPut, apiUpload } from './apiClient';
+import { apiDelete, apiGet, apiPost, apiPut, apiUpload, buildApiUrl, getToken } from './apiClient';
 import type { Alert, AlertRule, AuditLog, Buyer, BuyerDashboard, BuyerPortalDocument, BuyerPortalInstallment, BuyerPortalPayment, BuyerPortalProfile, BuyerPortalSaleDetail, BuyerSaleSummary, CashAccount, CashMovement, CommunicationLog, CommunicationSettings, CommunicationTemplate, DashboardSummary, DeedProcess, DelinquencyAction, DelinquencyCase, Development, DevelopmentSettings, EffectivePermissions, ExecutiveSummary, Expense, FinanceDashboardSummary, GeneratedDocument, ImportBatch, ImportRow, ImportTemplate, Installment, Lead, LeadActivity, LegalDashboardSummary, LegalProcess, Lot, LotsMapResponse, LotsMapSummary, MigrationBatch, MigrationExecuteConfig, MigrationItem, MigrationPreviewResult, MigrationStatusResponse, Notification, OnboardingChecklist, OrganizationSettings, OrganizationSubscription, Payment, PaymentMethodConfig, PaymentRequest, PermissionsCatalogModule, PlanLimits, PlanModules, Quotation, RefinancingAgreement, Reservation, Role, SaasDashboard, Sale, SaleDetail, Supplier, SubscriptionPayment, SubscriptionPlan, UsageInfo, UserRoleAssignment, WorkProgressLog, WorkProject } from '../types';
 
 export const developmentsApi = {
@@ -417,19 +417,19 @@ export const importsApi = {
   remove: (id: string) => apiDelete<{ message: string }>(`/api/imports/${id}`),
   getRows: (id: string, params?: Record<string, string>) => apiGet<{ rows: ImportRow[]; total: number }>(`/api/imports/${id}/rows`, params),
   listTemplates: () => apiGet<{ templates: ImportTemplate[] }>('/api/imports/templates'),
-  templateDownloadUrl: (type: string) => `/api/imports/templates/${type}/download`,
+  templateDownloadUrl: (type: string) => buildApiUrl(`/api/imports/templates/${type}/download`),
 };
 
 export const exportsApi = {
   downloadUrl: (type: string, params?: Record<string, string>) => {
-    const token = localStorage.getItem('token') ?? '';
+    const token = getToken();
     const searchParams = new URLSearchParams({ ...params, token });
-    return `/api/exports/${type}?${searchParams.toString()}`;
+    return buildApiUrl(`/api/exports/${type}?${searchParams.toString()}`);
   },
   download: async (type: string, params?: Record<string, string>): Promise<void> => {
-    const token = localStorage.getItem('token') ?? '';
+    const token = getToken();
     const searchParams = params ? new URLSearchParams(params).toString() : '';
-    const url = `/api/exports/${type}${searchParams ? `?${searchParams}` : ''}`;
+    const url = buildApiUrl(`/api/exports/${type}${searchParams ? `?${searchParams}` : ''}`);
     const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
     if (!res.ok) throw new Error('Error al exportar los datos.');
     const blob = await res.blob();

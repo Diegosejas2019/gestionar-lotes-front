@@ -1,112 +1,114 @@
+import { lazy, Suspense } from 'react';
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { AlertTriangle, Archive, ArrowLeftRight, Bell, BarChart2, BellRing, Building, Building2, ChartNoAxesCombined, ClipboardList, CreditCard, Download, FileCheck, Gavel, HardHat, LayoutDashboard, Map, MessageSquare, Receipt, ReceiptText, RefreshCw, Scale, Send, Settings, Shield, TrendingUp, Upload, UserRoundSearch, Users, Wallet } from 'lucide-react';
 import { PermissionsProvider } from './context/PermissionsContext';
 import { SessionGate } from './components/SessionGate';
 import { BuyerPortalLayout } from './components/BuyerPortalLayout';
-import { DashboardPage } from './pages/DashboardPage';
-import { DevelopmentsPage } from './pages/DevelopmentsPage';
-import { DevelopmentFormPage } from './pages/DevelopmentFormPage';
-import { LotsPage } from './pages/LotsPage';
-import { LotsMapPage } from './pages/LotsMapPage';
-import { LotFormPage } from './pages/LotFormPage';
-import { BuyersPage } from './pages/BuyersPage';
-import { BuyerFormPage } from './pages/BuyerFormPage';
-import { BuyerDetailPage } from './pages/BuyerDetailPage';
-import { SalesPage } from './pages/SalesPage';
-import { SaleFormPage } from './pages/SaleFormPage';
-import { SaleDetailPage } from './pages/SaleDetailPage';
-import { CommercialDashboardPage } from './pages/CommercialDashboardPage';
-import { LeadsPage } from './pages/LeadsPage';
-import { LeadFormPage } from './pages/LeadFormPage';
-import { LeadDetailPage } from './pages/LeadDetailPage';
-import { QuotationsPage } from './pages/QuotationsPage';
-import { QuotationFormPage } from './pages/QuotationFormPage';
-import { QuotationDetailPage } from './pages/QuotationDetailPage';
-import { ReservationsPage } from './pages/ReservationsPage';
-import { ReservationFormPage } from './pages/ReservationFormPage';
-import { ReservationDetailPage } from './pages/ReservationDetailPage';
-import { BuyerLoginPage } from './pages/BuyerLoginPage';
-import { BuyerDashboardPage } from './pages/BuyerDashboardPage';
-import { BuyerSalesPage } from './pages/BuyerSalesPage';
-import { BuyerSaleDetailPage } from './pages/BuyerSaleDetailPage';
-import { BuyerDocumentsPage } from './pages/BuyerDocumentsPage';
-import { BuyerProfilePage } from './pages/BuyerProfilePage';
-import { PaymentMethodsPage } from './pages/PaymentMethodsPage';
-import { PaymentRequestsPage } from './pages/PaymentRequestsPage';
-import { BuyerPaymentRequestsPage } from './pages/BuyerPaymentRequestsPage';
-import { FinanceDashboardPage } from './pages/FinanceDashboardPage';
-import { CashAccountsPage } from './pages/CashAccountsPage';
-import { CashAccountFormPage } from './pages/CashAccountFormPage';
-import { CashMovementsPage } from './pages/CashMovementsPage';
-import { CashMovementFormPage } from './pages/CashMovementFormPage';
-import { CashMovementDetailPage } from './pages/CashMovementDetailPage';
-import { SuppliersPage } from './pages/SuppliersPage';
-import { SupplierFormPage } from './pages/SupplierFormPage';
-import { ExpensesPage } from './pages/ExpensesPage';
-import { ExpenseFormPage } from './pages/ExpenseFormPage';
-import { ExpenseDetailPage } from './pages/ExpenseDetailPage';
-import { WorkProjectsPage } from './pages/WorkProjectsPage';
-import { WorkProjectFormPage } from './pages/WorkProjectFormPage';
-import { WorkProjectDetailPage } from './pages/WorkProjectDetailPage';
-import { LegalDashboardPage } from './pages/LegalDashboardPage';
-import { DelinquencyCasesPage } from './pages/DelinquencyCasesPage';
-import { DelinquencyCaseDetailPage } from './pages/DelinquencyCaseDetailPage';
-import { RefinancingAgreementsPage } from './pages/RefinancingAgreementsPage';
-import { RefinancingAgreementFormPage } from './pages/RefinancingAgreementFormPage';
-import { RefinancingAgreementDetailPage } from './pages/RefinancingAgreementDetailPage';
-import { LegalProcessesPage } from './pages/LegalProcessesPage';
-import { LegalProcessFormPage } from './pages/LegalProcessFormPage';
-import { LegalProcessDetailPage } from './pages/LegalProcessDetailPage';
-import { DeedProcessesPage } from './pages/DeedProcessesPage';
-import { DeedProcessFormPage } from './pages/DeedProcessFormPage';
-import { DeedProcessDetailPage } from './pages/DeedProcessDetailPage';
-import { DevelopmentMigrationPage } from './pages/DevelopmentMigrationPage';
-import { MigrationsPage } from './pages/MigrationsPage';
-import { MigrationDetailPage } from './pages/MigrationDetailPage';
-import { ExecutiveDashboardPage } from './pages/ExecutiveDashboardPage';
-import { ReportCommercialPage } from './pages/ReportCommercialPage';
-import { ReportLotsPage } from './pages/ReportLotsPage';
-import { ReportFinancialPage } from './pages/ReportFinancialPage';
-import { ReportCashAndExpensesPage } from './pages/ReportCashAndExpensesPage';
-import { ReportDelinquencyPage } from './pages/ReportDelinquencyPage';
-import { ReportDeedsAndLegalPage } from './pages/ReportDeedsAndLegalPage';
-import { ReportMigrationPage } from './pages/ReportMigrationPage';
-import { AlertsPage } from './pages/AlertsPage';
-import { AlertRulesPage } from './pages/AlertRulesPage';
-import { CommunicationsPage } from './pages/CommunicationsPage';
-import { CommunicationDetailPage } from './pages/CommunicationDetailPage';
-import { CommunicationTemplatesPage } from './pages/CommunicationTemplatesPage';
-import { CommunicationTemplateFormPage } from './pages/CommunicationTemplateFormPage';
-import { NotificationsPage } from './pages/NotificationsPage';
-import { CommunicationSettingsPage } from './pages/CommunicationSettingsPage';
-import { BuyerNotificationsPage } from './pages/BuyerNotificationsPage';
-import { OrgSettingsPage } from './pages/OrgSettingsPage';
-import { DevelopmentSettingsListPage } from './pages/DevelopmentSettingsListPage';
-import { DevelopmentSettingsPage } from './pages/DevelopmentSettingsPage';
-import { RolesPage } from './pages/RolesPage';
-import { RoleFormPage } from './pages/RoleFormPage';
-import { UsersPage } from './pages/UsersPage';
-import { AuditLogsPage } from './pages/AuditLogsPage';
-import { ImportsPage } from './pages/ImportsPage';
-import { ImportNewPage } from './pages/ImportNewPage';
-import { ImportDetailPage } from './pages/ImportDetailPage';
-import { ExportsPage } from './pages/ExportsPage';
-import { BillingPage } from './pages/BillingPage';
-import { OnboardingPage } from './pages/OnboardingPage';
-import { AdvancedLotsMapPage } from './pages/AdvancedLotsMapPage';
-import { LotMapEditorPage } from './pages/LotMapEditorPage';
-import { BackupJobsPage } from './pages/BackupJobsPage';
-import { BackupJobFormPage } from './pages/BackupJobFormPage';
-import { BackupRunsPage } from './pages/BackupRunsPage';
-import { ManualBackupPage } from './pages/ManualBackupPage';
-import { LandingPage } from './pages/LandingPage';
 import { SuperAdminLayout } from './components/SuperAdminLayout';
-import { SuperAdminDashboardPage } from './pages/superAdmin/SuperAdminDashboardPage';
-import { SuperAdminOrganizationsPage } from './pages/superAdmin/SuperAdminOrganizationsPage';
-import { SuperAdminOrganizationDetailPage } from './pages/superAdmin/SuperAdminOrganizationDetailPage';
-import { SuperAdminPlansPage } from './pages/superAdmin/SuperAdminPlansPage';
-import { SuperAdminPlanFormPage } from './pages/superAdmin/SuperAdminPlanFormPage';
-import { SuperAdminPaymentsPage } from './pages/superAdmin/SuperAdminPaymentsPage';
+
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then(({ DashboardPage }) => ({ default: DashboardPage })));
+const DevelopmentsPage = lazy(() => import('./pages/DevelopmentsPage').then(({ DevelopmentsPage }) => ({ default: DevelopmentsPage })));
+const DevelopmentFormPage = lazy(() => import('./pages/DevelopmentFormPage').then(({ DevelopmentFormPage }) => ({ default: DevelopmentFormPage })));
+const LotsPage = lazy(() => import('./pages/LotsPage').then(({ LotsPage }) => ({ default: LotsPage })));
+const LotsMapPage = lazy(() => import('./pages/LotsMapPage').then(({ LotsMapPage }) => ({ default: LotsMapPage })));
+const LotFormPage = lazy(() => import('./pages/LotFormPage').then(({ LotFormPage }) => ({ default: LotFormPage })));
+const BuyersPage = lazy(() => import('./pages/BuyersPage').then(({ BuyersPage }) => ({ default: BuyersPage })));
+const BuyerFormPage = lazy(() => import('./pages/BuyerFormPage').then(({ BuyerFormPage }) => ({ default: BuyerFormPage })));
+const BuyerDetailPage = lazy(() => import('./pages/BuyerDetailPage').then(({ BuyerDetailPage }) => ({ default: BuyerDetailPage })));
+const SalesPage = lazy(() => import('./pages/SalesPage').then(({ SalesPage }) => ({ default: SalesPage })));
+const SaleFormPage = lazy(() => import('./pages/SaleFormPage').then(({ SaleFormPage }) => ({ default: SaleFormPage })));
+const SaleDetailPage = lazy(() => import('./pages/SaleDetailPage').then(({ SaleDetailPage }) => ({ default: SaleDetailPage })));
+const CommercialDashboardPage = lazy(() => import('./pages/CommercialDashboardPage').then(({ CommercialDashboardPage }) => ({ default: CommercialDashboardPage })));
+const LeadsPage = lazy(() => import('./pages/LeadsPage').then(({ LeadsPage }) => ({ default: LeadsPage })));
+const LeadFormPage = lazy(() => import('./pages/LeadFormPage').then(({ LeadFormPage }) => ({ default: LeadFormPage })));
+const LeadDetailPage = lazy(() => import('./pages/LeadDetailPage').then(({ LeadDetailPage }) => ({ default: LeadDetailPage })));
+const QuotationsPage = lazy(() => import('./pages/QuotationsPage').then(({ QuotationsPage }) => ({ default: QuotationsPage })));
+const QuotationFormPage = lazy(() => import('./pages/QuotationFormPage').then(({ QuotationFormPage }) => ({ default: QuotationFormPage })));
+const QuotationDetailPage = lazy(() => import('./pages/QuotationDetailPage').then(({ QuotationDetailPage }) => ({ default: QuotationDetailPage })));
+const ReservationsPage = lazy(() => import('./pages/ReservationsPage').then(({ ReservationsPage }) => ({ default: ReservationsPage })));
+const ReservationFormPage = lazy(() => import('./pages/ReservationFormPage').then(({ ReservationFormPage }) => ({ default: ReservationFormPage })));
+const ReservationDetailPage = lazy(() => import('./pages/ReservationDetailPage').then(({ ReservationDetailPage }) => ({ default: ReservationDetailPage })));
+const BuyerLoginPage = lazy(() => import('./pages/BuyerLoginPage').then(({ BuyerLoginPage }) => ({ default: BuyerLoginPage })));
+const BuyerDashboardPage = lazy(() => import('./pages/BuyerDashboardPage').then(({ BuyerDashboardPage }) => ({ default: BuyerDashboardPage })));
+const BuyerSalesPage = lazy(() => import('./pages/BuyerSalesPage').then(({ BuyerSalesPage }) => ({ default: BuyerSalesPage })));
+const BuyerSaleDetailPage = lazy(() => import('./pages/BuyerSaleDetailPage').then(({ BuyerSaleDetailPage }) => ({ default: BuyerSaleDetailPage })));
+const BuyerDocumentsPage = lazy(() => import('./pages/BuyerDocumentsPage').then(({ BuyerDocumentsPage }) => ({ default: BuyerDocumentsPage })));
+const BuyerProfilePage = lazy(() => import('./pages/BuyerProfilePage').then(({ BuyerProfilePage }) => ({ default: BuyerProfilePage })));
+const PaymentMethodsPage = lazy(() => import('./pages/PaymentMethodsPage').then(({ PaymentMethodsPage }) => ({ default: PaymentMethodsPage })));
+const PaymentRequestsPage = lazy(() => import('./pages/PaymentRequestsPage').then(({ PaymentRequestsPage }) => ({ default: PaymentRequestsPage })));
+const BuyerPaymentRequestsPage = lazy(() => import('./pages/BuyerPaymentRequestsPage').then(({ BuyerPaymentRequestsPage }) => ({ default: BuyerPaymentRequestsPage })));
+const FinanceDashboardPage = lazy(() => import('./pages/FinanceDashboardPage').then(({ FinanceDashboardPage }) => ({ default: FinanceDashboardPage })));
+const CashAccountsPage = lazy(() => import('./pages/CashAccountsPage').then(({ CashAccountsPage }) => ({ default: CashAccountsPage })));
+const CashAccountFormPage = lazy(() => import('./pages/CashAccountFormPage').then(({ CashAccountFormPage }) => ({ default: CashAccountFormPage })));
+const CashMovementsPage = lazy(() => import('./pages/CashMovementsPage').then(({ CashMovementsPage }) => ({ default: CashMovementsPage })));
+const CashMovementFormPage = lazy(() => import('./pages/CashMovementFormPage').then(({ CashMovementFormPage }) => ({ default: CashMovementFormPage })));
+const CashMovementDetailPage = lazy(() => import('./pages/CashMovementDetailPage').then(({ CashMovementDetailPage }) => ({ default: CashMovementDetailPage })));
+const SuppliersPage = lazy(() => import('./pages/SuppliersPage').then(({ SuppliersPage }) => ({ default: SuppliersPage })));
+const SupplierFormPage = lazy(() => import('./pages/SupplierFormPage').then(({ SupplierFormPage }) => ({ default: SupplierFormPage })));
+const ExpensesPage = lazy(() => import('./pages/ExpensesPage').then(({ ExpensesPage }) => ({ default: ExpensesPage })));
+const ExpenseFormPage = lazy(() => import('./pages/ExpenseFormPage').then(({ ExpenseFormPage }) => ({ default: ExpenseFormPage })));
+const ExpenseDetailPage = lazy(() => import('./pages/ExpenseDetailPage').then(({ ExpenseDetailPage }) => ({ default: ExpenseDetailPage })));
+const WorkProjectsPage = lazy(() => import('./pages/WorkProjectsPage').then(({ WorkProjectsPage }) => ({ default: WorkProjectsPage })));
+const WorkProjectFormPage = lazy(() => import('./pages/WorkProjectFormPage').then(({ WorkProjectFormPage }) => ({ default: WorkProjectFormPage })));
+const WorkProjectDetailPage = lazy(() => import('./pages/WorkProjectDetailPage').then(({ WorkProjectDetailPage }) => ({ default: WorkProjectDetailPage })));
+const LegalDashboardPage = lazy(() => import('./pages/LegalDashboardPage').then(({ LegalDashboardPage }) => ({ default: LegalDashboardPage })));
+const DelinquencyCasesPage = lazy(() => import('./pages/DelinquencyCasesPage').then(({ DelinquencyCasesPage }) => ({ default: DelinquencyCasesPage })));
+const DelinquencyCaseDetailPage = lazy(() => import('./pages/DelinquencyCaseDetailPage').then(({ DelinquencyCaseDetailPage }) => ({ default: DelinquencyCaseDetailPage })));
+const RefinancingAgreementsPage = lazy(() => import('./pages/RefinancingAgreementsPage').then(({ RefinancingAgreementsPage }) => ({ default: RefinancingAgreementsPage })));
+const RefinancingAgreementFormPage = lazy(() => import('./pages/RefinancingAgreementFormPage').then(({ RefinancingAgreementFormPage }) => ({ default: RefinancingAgreementFormPage })));
+const RefinancingAgreementDetailPage = lazy(() => import('./pages/RefinancingAgreementDetailPage').then(({ RefinancingAgreementDetailPage }) => ({ default: RefinancingAgreementDetailPage })));
+const LegalProcessesPage = lazy(() => import('./pages/LegalProcessesPage').then(({ LegalProcessesPage }) => ({ default: LegalProcessesPage })));
+const LegalProcessFormPage = lazy(() => import('./pages/LegalProcessFormPage').then(({ LegalProcessFormPage }) => ({ default: LegalProcessFormPage })));
+const LegalProcessDetailPage = lazy(() => import('./pages/LegalProcessDetailPage').then(({ LegalProcessDetailPage }) => ({ default: LegalProcessDetailPage })));
+const DeedProcessesPage = lazy(() => import('./pages/DeedProcessesPage').then(({ DeedProcessesPage }) => ({ default: DeedProcessesPage })));
+const DeedProcessFormPage = lazy(() => import('./pages/DeedProcessFormPage').then(({ DeedProcessFormPage }) => ({ default: DeedProcessFormPage })));
+const DeedProcessDetailPage = lazy(() => import('./pages/DeedProcessDetailPage').then(({ DeedProcessDetailPage }) => ({ default: DeedProcessDetailPage })));
+const DevelopmentMigrationPage = lazy(() => import('./pages/DevelopmentMigrationPage').then(({ DevelopmentMigrationPage }) => ({ default: DevelopmentMigrationPage })));
+const MigrationsPage = lazy(() => import('./pages/MigrationsPage').then(({ MigrationsPage }) => ({ default: MigrationsPage })));
+const MigrationDetailPage = lazy(() => import('./pages/MigrationDetailPage').then(({ MigrationDetailPage }) => ({ default: MigrationDetailPage })));
+const ExecutiveDashboardPage = lazy(() => import('./pages/ExecutiveDashboardPage').then(({ ExecutiveDashboardPage }) => ({ default: ExecutiveDashboardPage })));
+const ReportCommercialPage = lazy(() => import('./pages/ReportCommercialPage').then(({ ReportCommercialPage }) => ({ default: ReportCommercialPage })));
+const ReportLotsPage = lazy(() => import('./pages/ReportLotsPage').then(({ ReportLotsPage }) => ({ default: ReportLotsPage })));
+const ReportFinancialPage = lazy(() => import('./pages/ReportFinancialPage').then(({ ReportFinancialPage }) => ({ default: ReportFinancialPage })));
+const ReportCashAndExpensesPage = lazy(() => import('./pages/ReportCashAndExpensesPage').then(({ ReportCashAndExpensesPage }) => ({ default: ReportCashAndExpensesPage })));
+const ReportDelinquencyPage = lazy(() => import('./pages/ReportDelinquencyPage').then(({ ReportDelinquencyPage }) => ({ default: ReportDelinquencyPage })));
+const ReportDeedsAndLegalPage = lazy(() => import('./pages/ReportDeedsAndLegalPage').then(({ ReportDeedsAndLegalPage }) => ({ default: ReportDeedsAndLegalPage })));
+const ReportMigrationPage = lazy(() => import('./pages/ReportMigrationPage').then(({ ReportMigrationPage }) => ({ default: ReportMigrationPage })));
+const AlertsPage = lazy(() => import('./pages/AlertsPage').then(({ AlertsPage }) => ({ default: AlertsPage })));
+const AlertRulesPage = lazy(() => import('./pages/AlertRulesPage').then(({ AlertRulesPage }) => ({ default: AlertRulesPage })));
+const CommunicationsPage = lazy(() => import('./pages/CommunicationsPage').then(({ CommunicationsPage }) => ({ default: CommunicationsPage })));
+const CommunicationDetailPage = lazy(() => import('./pages/CommunicationDetailPage').then(({ CommunicationDetailPage }) => ({ default: CommunicationDetailPage })));
+const CommunicationTemplatesPage = lazy(() => import('./pages/CommunicationTemplatesPage').then(({ CommunicationTemplatesPage }) => ({ default: CommunicationTemplatesPage })));
+const CommunicationTemplateFormPage = lazy(() => import('./pages/CommunicationTemplateFormPage').then(({ CommunicationTemplateFormPage }) => ({ default: CommunicationTemplateFormPage })));
+const NotificationsPage = lazy(() => import('./pages/NotificationsPage').then(({ NotificationsPage }) => ({ default: NotificationsPage })));
+const CommunicationSettingsPage = lazy(() => import('./pages/CommunicationSettingsPage').then(({ CommunicationSettingsPage }) => ({ default: CommunicationSettingsPage })));
+const BuyerNotificationsPage = lazy(() => import('./pages/BuyerNotificationsPage').then(({ BuyerNotificationsPage }) => ({ default: BuyerNotificationsPage })));
+const OrgSettingsPage = lazy(() => import('./pages/OrgSettingsPage').then(({ OrgSettingsPage }) => ({ default: OrgSettingsPage })));
+const DevelopmentSettingsListPage = lazy(() => import('./pages/DevelopmentSettingsListPage').then(({ DevelopmentSettingsListPage }) => ({ default: DevelopmentSettingsListPage })));
+const DevelopmentSettingsPage = lazy(() => import('./pages/DevelopmentSettingsPage').then(({ DevelopmentSettingsPage }) => ({ default: DevelopmentSettingsPage })));
+const RolesPage = lazy(() => import('./pages/RolesPage').then(({ RolesPage }) => ({ default: RolesPage })));
+const RoleFormPage = lazy(() => import('./pages/RoleFormPage').then(({ RoleFormPage }) => ({ default: RoleFormPage })));
+const UsersPage = lazy(() => import('./pages/UsersPage').then(({ UsersPage }) => ({ default: UsersPage })));
+const AuditLogsPage = lazy(() => import('./pages/AuditLogsPage').then(({ AuditLogsPage }) => ({ default: AuditLogsPage })));
+const ImportsPage = lazy(() => import('./pages/ImportsPage').then(({ ImportsPage }) => ({ default: ImportsPage })));
+const ImportNewPage = lazy(() => import('./pages/ImportNewPage').then(({ ImportNewPage }) => ({ default: ImportNewPage })));
+const ImportDetailPage = lazy(() => import('./pages/ImportDetailPage').then(({ ImportDetailPage }) => ({ default: ImportDetailPage })));
+const ExportsPage = lazy(() => import('./pages/ExportsPage').then(({ ExportsPage }) => ({ default: ExportsPage })));
+const BillingPage = lazy(() => import('./pages/BillingPage').then(({ BillingPage }) => ({ default: BillingPage })));
+const OnboardingPage = lazy(() => import('./pages/OnboardingPage').then(({ OnboardingPage }) => ({ default: OnboardingPage })));
+const AdvancedLotsMapPage = lazy(() => import('./pages/AdvancedLotsMapPage').then(({ AdvancedLotsMapPage }) => ({ default: AdvancedLotsMapPage })));
+const LotMapEditorPage = lazy(() => import('./pages/LotMapEditorPage').then(({ LotMapEditorPage }) => ({ default: LotMapEditorPage })));
+const BackupJobsPage = lazy(() => import('./pages/BackupJobsPage').then(({ BackupJobsPage }) => ({ default: BackupJobsPage })));
+const BackupJobFormPage = lazy(() => import('./pages/BackupJobFormPage').then(({ BackupJobFormPage }) => ({ default: BackupJobFormPage })));
+const BackupRunsPage = lazy(() => import('./pages/BackupRunsPage').then(({ BackupRunsPage }) => ({ default: BackupRunsPage })));
+const ManualBackupPage = lazy(() => import('./pages/ManualBackupPage').then(({ ManualBackupPage }) => ({ default: ManualBackupPage })));
+const LandingPage = lazy(() => import('./pages/LandingPage').then(({ LandingPage }) => ({ default: LandingPage })));
+const SuperAdminDashboardPage = lazy(() => import('./pages/superAdmin/SuperAdminDashboardPage').then(({ SuperAdminDashboardPage }) => ({ default: SuperAdminDashboardPage })));
+const SuperAdminOrganizationsPage = lazy(() => import('./pages/superAdmin/SuperAdminOrganizationsPage').then(({ SuperAdminOrganizationsPage }) => ({ default: SuperAdminOrganizationsPage })));
+const SuperAdminOrganizationDetailPage = lazy(() => import('./pages/superAdmin/SuperAdminOrganizationDetailPage').then(({ SuperAdminOrganizationDetailPage }) => ({ default: SuperAdminOrganizationDetailPage })));
+const SuperAdminPlansPage = lazy(() => import('./pages/superAdmin/SuperAdminPlansPage').then(({ SuperAdminPlansPage }) => ({ default: SuperAdminPlansPage })));
+const SuperAdminPlanFormPage = lazy(() => import('./pages/superAdmin/SuperAdminPlanFormPage').then(({ SuperAdminPlanFormPage }) => ({ default: SuperAdminPlanFormPage })));
+const SuperAdminPaymentsPage = lazy(() => import('./pages/superAdmin/SuperAdminPaymentsPage').then(({ SuperAdminPaymentsPage }) => ({ default: SuperAdminPaymentsPage })));
 
 const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -162,7 +164,8 @@ const navItems = [
 
 export function App(): React.ReactElement {
   return (
-    <Routes>
+    <Suspense fallback={<div className="loading">Cargando...</div>}>
+      <Routes>
       <Route path="/buyer/login" element={<BuyerLoginPage />} />
       <Route path="/buyer" element={<BuyerPortalLayout />}>
         <Route index element={<Navigate to="/buyer/dashboard" replace />} />
@@ -185,7 +188,8 @@ export function App(): React.ReactElement {
         <Route path="payments" element={<SuperAdminPaymentsPage />} />
       </Route>
       <Route path="/*" element={<AdminApp />} />
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 }
 

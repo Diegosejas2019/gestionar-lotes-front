@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+const DEFAULT_DEV_API_BASE_URL = 'http://localhost:5001';
+const configuredApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+const API_BASE_URL = configuredApiBaseUrl || (import.meta.env.DEV ? DEFAULT_DEV_API_BASE_URL : '');
 const TOKEN_KEY = 'gestionar_lotes_token';
 
 export class ApiError extends Error {
@@ -21,6 +23,13 @@ export function saveToken(token: string): void {
 
 export function clearToken(): void {
   localStorage.removeItem(TOKEN_KEY);
+}
+
+export function buildApiUrl(path: string): string {
+  if (!API_BASE_URL) {
+    throw new Error('Falta configurar VITE_API_BASE_URL para conectar con la API.');
+  }
+  return `${API_BASE_URL}${path}`;
 }
 
 type ApiEnvelope<T> = {
@@ -55,7 +64,7 @@ export async function apiRequest<T>(path: string, options: RequestInit = {}): Pr
   headers.set('Content-Type', 'application/json');
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     ...options,
     headers,
   });
@@ -88,7 +97,7 @@ export async function apiUpload<T>(path: string, formData: FormData): Promise<T>
   const headers = new Headers();
   if (token) headers.set('Authorization', `Bearer ${token}`);
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildApiUrl(path), {
     method: 'POST',
     headers,
     body: formData,
