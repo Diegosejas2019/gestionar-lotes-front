@@ -326,6 +326,7 @@ export interface LotsMapSummary {
   sold: number;
   blocked: number;
   cancelled: number;
+  deeded: number;
   overdue: number;
   reservationsExpiringSoon: number;
   reservationExpiringSoon: number;
