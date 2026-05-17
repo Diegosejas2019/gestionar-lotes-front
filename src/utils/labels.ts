@@ -26,6 +26,7 @@ export const lotVisualStatusLabels: Record<LotVisualStatus, string> = {
   sold_with_overdue: 'Vendido con mora',
   blocked: 'Bloqueado',
   cancelled: 'Cancelado',
+  deeded: 'Escriturado',
 };
 
 export const saleStatusLabels: Record<SaleStatus, string> = {
