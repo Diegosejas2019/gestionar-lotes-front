@@ -22,7 +22,7 @@ function ShapeDetail({ shape, onClose }: { shape: EnrichedMapShape; onClose: () 
           {shape.price != null ? <p><strong>Precio:</strong> {shape.currency} {shape.price.toLocaleString('es-AR')}</p> : null}
           {shape.visualStatus ? <p><strong>Estado:</strong> {shape.visualStatus}</p> : null}
           {shape.buyerName ? <p><strong>Comprador:</strong> {shape.buyerName}</p> : null}
-          {shape.hasOverdueInstallments ? <p style={{ color: '#dc2626' }}>Tiene cuotas vencidas</p> : null}
+          {shape.hasOverdueInstallments ? <p className="text--danger">Tiene cuotas vencidas</p> : null}
         </div>
         <div className="modal-actions">
           {shape.saleId ? <button className="button button--ghost" type="button" onClick={() => navigate(`/sales/${shape.saleId}`)}>Ver venta</button> : null}
