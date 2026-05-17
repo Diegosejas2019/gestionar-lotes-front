@@ -16,7 +16,7 @@ export type LeadStatus = 'new' | 'contacted' | 'interested' | 'visited' | 'quote
 export type LeadActivityType = 'call' | 'whatsapp' | 'email' | 'meeting' | 'visit' | 'note' | 'quotation_sent' | 'reservation_created' | 'status_change';
 export type QuotationStatus = 'draft' | 'sent' | 'accepted' | 'rejected' | 'expired' | 'converted_to_reservation' | 'converted_to_sale';
 export type ReservationStatus = 'active' | 'pending_payment' | 'paid' | 'expired' | 'cancelled' | 'converted_to_sale';
-export type LotVisualStatus = 'available' | 'reserved' | 'reservation_expiring' | 'sold' | 'sold_with_overdue' | 'blocked' | 'cancelled';
+export type LotVisualStatus = 'available' | 'reserved' | 'reservation_expiring' | 'sold' | 'sold_with_overdue' | 'blocked' | 'cancelled' | 'deeded';
 
 export interface Development {
   _id: Id;
