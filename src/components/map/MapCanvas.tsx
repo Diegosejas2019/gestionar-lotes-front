@@ -113,7 +113,7 @@ export function MapCanvas({
           <image href={backgroundImageUrl} x={0} y={0} width={canvasWidth} height={canvasHeight} preserveAspectRatio="xMidYMid meet" />
         )}
         {!backgroundImageUrl && (
-          <rect x={0} y={0} width={canvasWidth} height={canvasHeight} fill="#e5e7eb" />
+          <rect x={0} y={0} width={canvasWidth} height={canvasHeight} style={{ fill: 'var(--surface-muted)' }} />
         )}
 
         {shapes.map((shape) => (
