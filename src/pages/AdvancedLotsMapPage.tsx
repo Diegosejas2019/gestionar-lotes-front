@@ -9,7 +9,7 @@ import { PageHeader } from '../components/PageHeader';
 import { MapCanvas } from '../components/map/MapCanvas';
 import { MapLegend } from '../components/map/MapLegend';
 import { UnplacedLotsPanel } from '../components/map/UnplacedLotsPanel';
-import type { AdvancedMapData, Development, EnrichedMapShape } from '../types';
+import type { AdvancedMapData, Development, EnrichedMapShape, LotVisualStatus } from '../types';
 
 function ShapeDetail({ shape, onClose }: { shape: EnrichedMapShape; onClose: () => void }): React.ReactElement {
   const navigate = useNavigate();
