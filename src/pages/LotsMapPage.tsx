@@ -21,6 +21,7 @@ const visualTone: Record<LotVisualStatus, 'success' | 'warning' | 'danger' | 'in
   sold_with_overdue: 'danger',
   blocked: 'neutral',
   cancelled: 'danger',
+  deeded: 'info',
 };
 
 export function LotsMapPage(): React.ReactElement {
