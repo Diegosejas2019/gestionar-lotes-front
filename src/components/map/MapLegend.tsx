@@ -8,6 +8,7 @@ const STATUS_LABELS: Record<string, string> = {
   sold_with_overdue: 'Vendido con mora',
   blocked: 'Bloqueado',
   cancelled: 'Cancelado',
+  deeded: 'Escriturado',
 };
 
 export const STATUS_COLORS: Record<string, string> = {
@@ -18,6 +19,7 @@ export const STATUS_COLORS: Record<string, string> = {
   sold_with_overdue: '#dc2626',
   blocked: '#6b7280',
   cancelled: '#9ca3af',
+  deeded: '#0ea5e9',
 };
 
 export function MapLegend(): React.ReactElement {
