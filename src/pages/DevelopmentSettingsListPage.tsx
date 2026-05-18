@@ -34,23 +34,25 @@ export function DevelopmentSettingsListPage(): React.ReactElement {
       {developments.length === 0 ? (
         <EmptyState title="Sin barrios" message="No hay barrios registrados." />
       ) : (
-        <table className="simple-table">
-          <thead>
-            <tr><th>Barrio</th><th>Estado</th><th>Moneda</th><th>Acciones</th></tr>
-          </thead>
-          <tbody>
-            {developments.map((d) => (
-              <tr key={d._id}>
-                <td>{d.name}</td>
-                <td>{d.status}</td>
-                <td>{d.defaultCurrency || '—'}</td>
-                <td className="actions">
-                  <Link to={`/settings/developments/${d._id}`} className="button button--small">Configurar</Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr><th>Barrio</th><th>Estado</th><th>Moneda</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+              {developments.map((d) => (
+                <tr key={d._id}>
+                  <td>{d.name}</td>
+                  <td>{d.status}</td>
+                  <td>{d.defaultCurrency || '—'}</td>
+                  <td>
+                    <Link to={`/settings/developments/${d._id}`} className="button button--small">Configurar</Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
