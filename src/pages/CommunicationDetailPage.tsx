@@ -25,7 +25,7 @@ export function CommunicationDetailPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await communicationsApi.getLog(id);
-        setLog((res as { data: { log: CommunicationLog } }).data.log);
+        setLog(res.log);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar la comunicación.');
       } finally {
@@ -38,7 +38,7 @@ export function CommunicationDetailPage(): React.ReactElement {
     if (!id) return;
     try {
       const res = await communicationsApi.markWhatsappSent(id);
-      setLog((res as { data: { log: CommunicationLog } }).data.log);
+      setLog(res.log);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al marcar como enviado.');
     }

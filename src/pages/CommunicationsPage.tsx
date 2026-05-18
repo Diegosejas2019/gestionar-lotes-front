@@ -29,7 +29,7 @@ export function CommunicationsPage(): React.ReactElement {
     if (status) params.status = status;
     try {
       const res = await communicationsApi.listLogs(params);
-      setLogs((res as { data: { logs: CommunicationLog[] } }).data.logs);
+      setLogs(res.logs ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al cargar las comunicaciones.');
     } finally {

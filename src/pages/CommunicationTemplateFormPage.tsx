@@ -42,7 +42,7 @@ export function CommunicationTemplateFormPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await communicationTemplatesApi.get(id);
-        const t = (res as { data: { template: typeof form & { _id: string } } }).data.template;
+        const t = res.template;
         setForm({ name: t.name, description: (t as unknown as Record<string,string>).description || '', type: t.type, channel: t.channel, subject: (t as unknown as Record<string,string>).subject || '', body: t.body, enabled: (t as unknown as Record<string,boolean>).enabled, isDefault: (t as unknown as Record<string,boolean>).isDefault });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar la plantilla.');
@@ -78,7 +78,7 @@ export function CommunicationTemplateFormPage(): React.ReactElement {
     if (!id) return;
     try {
       const res = await communicationTemplatesApi.preview(id, { contextData: { buyerName: 'Juan Pérez', installmentNumber: 3, dueDate: '31/01/2025', amount: 5000, currency: 'ARS' } });
-      setPreview((res as { data: { preview: { subject: string; body: string } } }).data.preview);
+      setPreview(res.preview);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al previsualizar.');
     }

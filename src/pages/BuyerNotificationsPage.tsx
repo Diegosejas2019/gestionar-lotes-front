@@ -19,7 +19,7 @@ export function BuyerNotificationsPage(): React.ReactElement {
     setError('');
     try {
       const res = await notificationsApi.list();
-      setNotifications((res as { data: { notifications: Notification[] } }).data.notifications);
+      setNotifications(res.notifications ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al cargar las notificaciones.');
     } finally {

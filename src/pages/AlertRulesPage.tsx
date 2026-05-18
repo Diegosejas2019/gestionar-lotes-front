@@ -35,7 +35,7 @@ export function AlertRulesPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await alertRulesApi.list();
-        setRules(res.data.alertRules ?? []);
+        setRules(res.alertRules ?? []);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar las reglas de alerta.');
       } finally {

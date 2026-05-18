@@ -27,7 +27,7 @@ export function CommunicationTemplatesPage(): React.ReactElement {
     setError('');
     try {
       const res = await communicationTemplatesApi.list();
-      setTemplates((res as { data: { templates: CommunicationTemplate[] } }).data.templates);
+      setTemplates(res.templates ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al cargar las plantillas.');
     } finally {

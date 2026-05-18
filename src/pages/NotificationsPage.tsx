@@ -23,7 +23,7 @@ export function NotificationsPage(): React.ReactElement {
       const params: Record<string, string> = {};
       if (filter) params.status = filter;
       const res = await notificationsApi.list(params);
-      setNotifications((res as { data: { notifications: Notification[] } }).data.notifications);
+      setNotifications(res.notifications ?? []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al cargar las notificaciones.');
     } finally {

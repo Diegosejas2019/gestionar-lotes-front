@@ -320,51 +320,51 @@ export const reportsApi = {
 };
 
 export const alertRulesApi = {
-  list: () => apiGet<{ data: { alertRules: AlertRule[] } }>('/api/alert-rules'),
-  create: (data: Partial<AlertRule>) => apiPost<{ data: { alertRule: AlertRule } }>('/api/alert-rules', data),
-  get: (id: string) => apiGet<{ data: { alertRule: AlertRule } }>(`/api/alert-rules/${id}`),
-  update: (id: string, data: Partial<AlertRule>) => apiPut<{ data: { alertRule: AlertRule } }>(`/api/alert-rules/${id}`, data),
-  remove: (id: string) => apiDelete<{ data: { message: string } }>(`/api/alert-rules/${id}`),
-  run: (id: string) => apiPost<{ data: { result: unknown } }>(`/api/alert-rules/${id}/run`, {}),
+  list: () => apiGet<{ alertRules: AlertRule[] }>('/api/alert-rules'),
+  create: (data: Partial<AlertRule>) => apiPost<{ alertRule: AlertRule }>('/api/alert-rules', data),
+  get: (id: string) => apiGet<{ alertRule: AlertRule }>(`/api/alert-rules/${id}`),
+  update: (id: string, data: Partial<AlertRule>) => apiPut<{ alertRule: AlertRule }>(`/api/alert-rules/${id}`, data),
+  remove: (id: string) => apiDelete<{ message: string }>(`/api/alert-rules/${id}`),
+  run: (id: string) => apiPost<{ result: unknown }>(`/api/alert-rules/${id}/run`, {}),
 };
 
 export const alertsApi = {
-  list: (params?: Record<string, string>) => apiGet<{ data: { alerts: Alert[]; total: number } }>('/api/alerts', params),
-  get: (id: string) => apiGet<{ data: { alert: Alert } }>(`/api/alerts/${id}`),
-  markInProgress: (id: string) => apiPost<{ data: { alert: Alert } }>(`/api/alerts/${id}/mark-in-progress`, {}),
-  resolve: (id: string) => apiPost<{ data: { alert: Alert } }>(`/api/alerts/${id}/resolve`, {}),
-  dismiss: (id: string) => apiPost<{ data: { alert: Alert } }>(`/api/alerts/${id}/dismiss`, {}),
-  generate: () => apiPost<{ data: { generated: Record<string, number> } }>('/api/alerts/generate', {}),
+  list: (params?: Record<string, string>) => apiGet<{ alerts: Alert[]; total: number }>('/api/alerts', params),
+  get: (id: string) => apiGet<{ alert: Alert }>(`/api/alerts/${id}`),
+  markInProgress: (id: string) => apiPost<{ alert: Alert }>(`/api/alerts/${id}/mark-in-progress`, {}),
+  resolve: (id: string) => apiPost<{ alert: Alert }>(`/api/alerts/${id}/resolve`, {}),
+  dismiss: (id: string) => apiPost<{ alert: Alert }>(`/api/alerts/${id}/dismiss`, {}),
+  generate: () => apiPost<{ generated: Record<string, number> }>('/api/alerts/generate', {}),
 };
 
 export const communicationTemplatesApi = {
-  list: (params?: Record<string, string>) => apiGet<{ data: { templates: CommunicationTemplate[]; total: number } }>('/api/communication-templates', params),
-  get: (id: string) => apiGet<{ data: { template: CommunicationTemplate } }>(`/api/communication-templates/${id}`),
-  create: (data: Partial<CommunicationTemplate>) => apiPost<{ data: { template: CommunicationTemplate } }>('/api/communication-templates', data),
-  update: (id: string, data: Partial<CommunicationTemplate>) => apiPut<{ data: { template: CommunicationTemplate } }>(`/api/communication-templates/${id}`, data),
-  remove: (id: string) => apiDelete<{ data: { message: string } }>(`/api/communication-templates/${id}`),
-  preview: (id: string, data: { contextData: Record<string, unknown> }) => apiPost<{ data: { preview: { subject: string; body: string; channel: string } } }>(`/api/communication-templates/${id}/preview`, data),
+  list: (params?: Record<string, string>) => apiGet<{ templates: CommunicationTemplate[]; total: number }>('/api/communication-templates', params),
+  get: (id: string) => apiGet<{ template: CommunicationTemplate }>(`/api/communication-templates/${id}`),
+  create: (data: Partial<CommunicationTemplate>) => apiPost<{ template: CommunicationTemplate }>('/api/communication-templates', data),
+  update: (id: string, data: Partial<CommunicationTemplate>) => apiPut<{ template: CommunicationTemplate }>(`/api/communication-templates/${id}`, data),
+  remove: (id: string) => apiDelete<{ message: string }>(`/api/communication-templates/${id}`),
+  preview: (id: string, data: { contextData: Record<string, unknown> }) => apiPost<{ preview: { subject: string; body: string; channel: string } }>(`/api/communication-templates/${id}/preview`, data),
 };
 
 export const communicationsApi = {
-  listLogs: (params?: Record<string, string>) => apiGet<{ data: { logs: CommunicationLog[]; total: number } }>('/api/communications', params),
-  getLog: (id: string) => apiGet<{ data: { log: CommunicationLog } }>(`/api/communications/${id}`),
-  sendEmail: (data: Record<string, unknown>) => apiPost<{ data: { log: CommunicationLog } }>('/api/communications/send-email', data),
-  generateWhatsapp: (data: Record<string, unknown>) => apiPost<{ data: { log: CommunicationLog; whatsappUrl: string } }>('/api/communications/generate-whatsapp', data),
-  markWhatsappSent: (id: string) => apiPost<{ data: { log: CommunicationLog } }>(`/api/communications/${id}/mark-whatsapp-sent`, {}),
-  cancelLog: (id: string) => apiPost<{ data: { log: CommunicationLog } }>(`/api/communications/${id}/cancel`, {}),
+  listLogs: (params?: Record<string, string>) => apiGet<{ logs: CommunicationLog[]; total: number }>('/api/communications', params),
+  getLog: (id: string) => apiGet<{ log: CommunicationLog }>(`/api/communications/${id}`),
+  sendEmail: (data: Record<string, unknown>) => apiPost<{ log: CommunicationLog }>('/api/communications/send-email', data),
+  generateWhatsapp: (data: Record<string, unknown>) => apiPost<{ log: CommunicationLog; whatsappUrl: string }>('/api/communications/generate-whatsapp', data),
+  markWhatsappSent: (id: string) => apiPost<{ log: CommunicationLog }>(`/api/communications/${id}/mark-whatsapp-sent`, {}),
+  cancelLog: (id: string) => apiPost<{ log: CommunicationLog }>(`/api/communications/${id}/cancel`, {}),
   sendPaymentReminder: (data: Record<string, unknown>) => apiPost<{ data: unknown }>('/api/communications/send-payment-reminder', data),
   sendReservationReminder: (data: Record<string, unknown>) => apiPost<{ data: unknown }>('/api/communications/send-reservation-reminder', data),
   sendOverdueNotice: (data: Record<string, unknown>) => apiPost<{ data: unknown }>('/api/communications/send-overdue-notice', data),
 };
 
 export const notificationsApi = {
-  list: (params?: Record<string, string>) => apiGet<{ data: { notifications: Notification[]; total: number } }>('/api/notifications', params),
-  unreadCount: () => apiGet<{ data: { count: number } }>('/api/notifications/unread-count'),
-  markRead: (id: string) => apiPost<{ data: { notification: Notification } }>(`/api/notifications/${id}/read`, {}),
-  dismiss: (id: string) => apiPost<{ data: { notification: Notification } }>(`/api/notifications/${id}/dismiss`, {}),
-  resolve: (id: string) => apiPost<{ data: { notification: Notification } }>(`/api/notifications/${id}/resolve`, {}),
-  markAllRead: () => apiPost<{ data: { updated: boolean } }>('/api/notifications/read-all', {}),
+  list: (params?: Record<string, string>) => apiGet<{ notifications: Notification[]; total: number }>('/api/notifications', params),
+  unreadCount: () => apiGet<{ count: number }>('/api/notifications/unread-count'),
+  markRead: (id: string) => apiPost<{ notification: Notification }>(`/api/notifications/${id}/read`, {}),
+  dismiss: (id: string) => apiPost<{ notification: Notification }>(`/api/notifications/${id}/dismiss`, {}),
+  resolve: (id: string) => apiPost<{ notification: Notification }>(`/api/notifications/${id}/resolve`, {}),
+  markAllRead: () => apiPost<{ updated: boolean }>('/api/notifications/read-all', {}),
 };
 
 export const communicationSettingsApi = {

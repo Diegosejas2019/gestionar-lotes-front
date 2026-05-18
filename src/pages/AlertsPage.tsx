@@ -71,7 +71,7 @@ export function AlertsPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await alertsApi.list(params);
-        setAlerts(res.data.alerts ?? []);
+        setAlerts(res.alerts ?? []);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar las alertas.');
       } finally {
