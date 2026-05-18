@@ -1,18 +1,21 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { BarChart2, Building, CreditCard, LayoutDashboard, Settings } from 'lucide-react';
+import { Building, CreditCard, FileText, LayoutDashboard, Settings } from 'lucide-react';
 import { SessionGate } from './SessionGate';
+import { LegalAcceptanceGate } from './LegalAcceptanceGate';
 
 const superAdminNavItems = [
   { to: '/super-admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/super-admin/organizations', label: 'Organizaciones', icon: Building },
   { to: '/super-admin/plans', label: 'Planes', icon: Settings },
   { to: '/super-admin/payments', label: 'Pagos', icon: CreditCard },
+  { to: '/super-admin/legal-documents', label: 'Documentos legales', icon: FileText },
 ];
 
 export function SuperAdminLayout(): React.ReactElement {
   return (
     <SessionGate>
+      <LegalAcceptanceGate>
       <div className="app-shell">
         <aside className="sidebar">
           <div className="brand">
@@ -35,6 +38,7 @@ export function SuperAdminLayout(): React.ReactElement {
           <Outlet />
         </main>
       </div>
+      </LegalAcceptanceGate>
     </SessionGate>
   );
 }

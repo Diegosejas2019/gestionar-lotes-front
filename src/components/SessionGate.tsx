@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { KeyRound } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { getToken, saveToken } from '../api/apiClient';
 
 type SessionGateProps = {
@@ -29,6 +30,11 @@ export function SessionGate({ children }: SessionGateProps): React.ReactElement 
           <textarea value={draft} onChange={(event) => setDraft(event.target.value)} rows={6} required />
         </label>
         <button className="button" type="submit">Guardar token</button>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', fontSize: 13 }}>
+          <Link to="/legal/terms">Términos</Link>
+          <Link to="/legal/privacy">Privacidad</Link>
+          <Link to="/legal/cookies">Cookies</Link>
+        </div>
       </form>
     </main>
   );

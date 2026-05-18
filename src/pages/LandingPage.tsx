@@ -29,6 +29,7 @@ export function LandingPage(): React.ReactElement {
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           <a href="#modulos" style={{ color: '#374151', textDecoration: 'none', fontSize: '0.9rem' }}>Módulos</a>
           <a href="#planes" style={{ color: '#374151', textDecoration: 'none', fontSize: '0.9rem' }}>Planes</a>
+          <Link to="/legal/terms" style={{ color: '#374151', textDecoration: 'none', fontSize: '0.9rem' }}>Legales</Link>
           <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" style={{ padding: '0.4rem 1rem', background: '#2563eb', color: '#fff', borderRadius: 6, textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600 }}>Solicitar demo</a>
         </div>
       </nav>
@@ -167,7 +168,12 @@ export function LandingPage(): React.ReactElement {
       </section>
 
       <footer style={{ background: '#111827', color: '#9ca3af', padding: '2rem', textAlign: 'center', fontSize: '0.85rem' }}>
-        GestionAr Lotes — Plataforma para desarrolladores inmobiliarios
+        <div>GestionAr Lotes — Plataforma para desarrolladores inmobiliarios</div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 12, flexWrap: 'wrap' }}>
+          <Link to="/legal/terms" style={{ color: '#d1d5db' }}>Términos</Link>
+          <Link to="/legal/privacy" style={{ color: '#d1d5db' }}>Privacidad</Link>
+          <Link to="/legal/cookies" style={{ color: '#d1d5db' }}>Cookies</Link>
+        </div>
       </footer>
     </div>
   );

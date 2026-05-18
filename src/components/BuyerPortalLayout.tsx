@@ -1,6 +1,7 @@
 import { NavLink, Navigate, Outlet, useNavigate } from 'react-router-dom';
-import { CreditCard, FileText, Home, LogOut, ReceiptText, UserRound } from 'lucide-react';
+import { CreditCard, FileText, Home, LogOut, ReceiptText, Scale, UserRound } from 'lucide-react';
 import { clearToken, getToken } from '../api/apiClient';
+import { LegalAcceptanceGate } from './LegalAcceptanceGate';
 
 const navItems = [
   { to: '/buyer/dashboard', label: 'Inicio', icon: Home },
@@ -8,6 +9,7 @@ const navItems = [
   { to: '/buyer/payment-requests', label: 'Mis pagos', icon: CreditCard },
   { to: '/buyer/documents', label: 'Documentos', icon: FileText },
   { to: '/buyer/profile', label: 'Mi perfil', icon: UserRound },
+  { to: '/legal/terms', label: 'Legales', icon: Scale },
 ];
 
 export function BuyerPortalLayout(): React.ReactElement {
@@ -22,6 +24,7 @@ export function BuyerPortalLayout(): React.ReactElement {
   }
 
   return (
+    <LegalAcceptanceGate>
     <div className="buyer-shell">
       <aside className="buyer-sidebar">
         <div className="brand">
@@ -48,5 +51,6 @@ export function BuyerPortalLayout(): React.ReactElement {
         <Outlet />
       </main>
     </div>
+    </LegalAcceptanceGate>
   );
 }

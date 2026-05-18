@@ -1,5 +1,5 @@
 import { apiDelete, apiGet, apiPost, apiPut, apiUpload, buildApiUrl, getToken } from './apiClient';
-import type { Alert, AlertRule, AuditLog, Buyer, BuyerDashboard, BuyerPortalDocument, BuyerPortalInstallment, BuyerPortalPayment, BuyerPortalProfile, BuyerPortalSaleDetail, BuyerSaleSummary, CashAccount, CashMovement, CommunicationLog, CommunicationSettings, CommunicationTemplate, DashboardSummary, DeedProcess, DelinquencyAction, DelinquencyCase, Development, DevelopmentSettings, EffectivePermissions, ExecutiveSummary, Expense, FinanceDashboardSummary, GeneratedDocument, ImportBatch, ImportRow, ImportTemplate, Installment, Lead, LeadActivity, LegalDashboardSummary, LegalProcess, Lot, LotsMapResponse, LotsMapSummary, MigrationBatch, MigrationExecuteConfig, MigrationItem, MigrationPreviewResult, MigrationStatusResponse, Notification, OnboardingChecklist, OrganizationSettings, OrganizationSubscription, Payment, PaymentMethodConfig, PaymentRequest, PermissionsCatalogModule, PlanLimits, PlanModules, Quotation, RefinancingAgreement, Reservation, Role, SaasDashboard, Sale, SaleDetail, Supplier, SubscriptionPayment, SubscriptionPlan, UsageInfo, UserRoleAssignment, WorkProgressLog, WorkProject } from '../types';
+import type { Alert, AlertRule, AuditLog, Buyer, BuyerDashboard, BuyerPortalDocument, BuyerPortalInstallment, BuyerPortalPayment, BuyerPortalProfile, BuyerPortalSaleDetail, BuyerSaleSummary, CashAccount, CashMovement, CommunicationLog, CommunicationSettings, CommunicationTemplate, CurrentLegalDocumentsResponse, DashboardSummary, DeedProcess, DelinquencyAction, DelinquencyCase, Development, DevelopmentSettings, EffectivePermissions, ExecutiveSummary, Expense, FinanceDashboardSummary, GeneratedDocument, ImportBatch, ImportRow, ImportTemplate, Installment, Lead, LeadActivity, LegalAcceptance, LegalDashboardSummary, LegalDocument, LegalProcess, Lot, LotsMapResponse, LotsMapSummary, MigrationBatch, MigrationExecuteConfig, MigrationItem, MigrationPreviewResult, MigrationStatusResponse, Notification, OnboardingChecklist, OrganizationSettings, OrganizationSubscription, Payment, PaymentMethodConfig, PaymentRequest, PermissionsCatalogModule, PlanLimits, PlanModules, Quotation, RefinancingAgreement, Reservation, Role, SaasDashboard, Sale, SaleDetail, Supplier, SubscriptionPayment, SubscriptionPlan, UsageInfo, UserRoleAssignment, WorkProgressLog, WorkProject } from '../types';
 
 export const developmentsApi = {
   list: () => apiGet<{ developments: Development[] }>('/api/developments'),
@@ -499,4 +499,27 @@ export const backupsApi = {
   downloadRun: (id: string) => apiGet<{ url: string; fileName: string }>(`/api/backups/runs/${id}/download`),
   cancelRun: (id: string) => apiPost<{ run: import('../types').BackupRun }>(`/api/backups/runs/${id}/cancel`, {}),
   runManual: (data: { includeModules: string[]; developmentIds?: string[]; format?: string }) => apiPost<{ run: import('../types').BackupRun }>('/api/backups/run-manual', data),
+};
+
+export const legalDocumentsApi = {
+  publicTerms: () => apiGet<{ document: LegalDocument }>('/api/legal-documents/public/terms'),
+  publicPrivacy: () => apiGet<{ document: LegalDocument }>('/api/legal-documents/public/privacy-policy'),
+  publicCookies: () => apiGet<{ document: LegalDocument }>('/api/legal-documents/public/cookies-policy'),
+  current: () => apiGet<CurrentLegalDocumentsResponse>('/api/legal-documents/current'),
+};
+
+export const legalAcceptancesApi = {
+  me: () => apiGet<{ acceptances: LegalAcceptance[] }>('/api/legal-acceptances/me'),
+  accept: (data: { type: LegalDocument['type']; version: string; legalDocumentId: string }) => apiPost<{ acceptance: LegalAcceptance }>('/api/legal-acceptances/accept', data),
+};
+
+export const adminLegalDocumentsApi = {
+  list: (params?: Record<string, string>) => apiGet<{ documents: LegalDocument[] }>('/api/admin/legal-documents', params),
+  create: (data: Partial<LegalDocument>) => apiPost<{ document: LegalDocument }>('/api/admin/legal-documents', data),
+  get: (id: string) => apiGet<{ document: LegalDocument }>(`/api/admin/legal-documents/${id}`),
+  update: (id: string, data: Partial<LegalDocument>) => apiPut<{ document: LegalDocument }>(`/api/admin/legal-documents/${id}`, data),
+  publish: (id: string) => apiPost<{ document: LegalDocument }>(`/api/admin/legal-documents/${id}/publish`, {}),
+  archive: (id: string) => apiPost<{ document: LegalDocument }>(`/api/admin/legal-documents/${id}/archive`, {}),
+  remove: (id: string) => apiDelete<{ message: string }>(`/api/admin/legal-documents/${id}`),
+  acceptances: (id: string) => apiGet<{ acceptances: LegalAcceptance[] }>(`/api/admin/legal-documents/${id}/acceptances`),
 };

@@ -5,6 +5,7 @@ import { PermissionsProvider } from './context/PermissionsContext';
 import { SessionGate } from './components/SessionGate';
 import { BuyerPortalLayout } from './components/BuyerPortalLayout';
 import { SuperAdminLayout } from './components/SuperAdminLayout';
+import { LegalAcceptanceGate } from './components/LegalAcceptanceGate';
 
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then(({ DashboardPage }) => ({ default: DashboardPage })));
 const DevelopmentsPage = lazy(() => import('./pages/DevelopmentsPage').then(({ DevelopmentsPage }) => ({ default: DevelopmentsPage })));
@@ -103,6 +104,8 @@ const BackupJobFormPage = lazy(() => import('./pages/BackupJobFormPage').then(({
 const BackupRunsPage = lazy(() => import('./pages/BackupRunsPage').then(({ BackupRunsPage }) => ({ default: BackupRunsPage })));
 const ManualBackupPage = lazy(() => import('./pages/ManualBackupPage').then(({ ManualBackupPage }) => ({ default: ManualBackupPage })));
 const LandingPage = lazy(() => import('./pages/LandingPage').then(({ LandingPage }) => ({ default: LandingPage })));
+const LegalPublicPage = lazy(() => import('./pages/LegalPublicPage').then(({ LegalPublicPage }) => ({ default: LegalPublicPage })));
+const LegalDocumentsSettingsPage = lazy(() => import('./pages/LegalDocumentsSettingsPage').then(({ LegalDocumentsSettingsPage }) => ({ default: LegalDocumentsSettingsPage })));
 const SuperAdminDashboardPage = lazy(() => import('./pages/superAdmin/SuperAdminDashboardPage').then(({ SuperAdminDashboardPage }) => ({ default: SuperAdminDashboardPage })));
 const SuperAdminOrganizationsPage = lazy(() => import('./pages/superAdmin/SuperAdminOrganizationsPage').then(({ SuperAdminOrganizationsPage }) => ({ default: SuperAdminOrganizationsPage })));
 const SuperAdminOrganizationDetailPage = lazy(() => import('./pages/superAdmin/SuperAdminOrganizationDetailPage').then(({ SuperAdminOrganizationDetailPage }) => ({ default: SuperAdminOrganizationDetailPage })));
@@ -201,6 +204,9 @@ export function App(): React.ReactElement {
   return (
     <Suspense fallback={<div className="loading">Cargando...</div>}>
       <Routes>
+      <Route path="/legal/terms" element={<LegalPublicPage />} />
+      <Route path="/legal/privacy" element={<LegalPublicPage />} />
+      <Route path="/legal/cookies" element={<LegalPublicPage />} />
       <Route path="/buyer/login" element={<BuyerLoginPage />} />
       <Route path="/buyer" element={<BuyerPortalLayout />}>
         <Route index element={<Navigate to="/buyer/dashboard" replace />} />
@@ -221,6 +227,7 @@ export function App(): React.ReactElement {
         <Route path="plans/new" element={<SuperAdminPlanFormPage />} />
         <Route path="plans/:id/edit" element={<SuperAdminPlanFormPage />} />
         <Route path="payments" element={<SuperAdminPaymentsPage />} />
+        <Route path="legal-documents" element={<LegalDocumentsSettingsPage />} />
       </Route>
       <Route path="/*" element={<AdminApp />} />
       </Routes>
@@ -231,6 +238,7 @@ export function App(): React.ReactElement {
 function AdminApp(): React.ReactElement {
   return (
     <SessionGate>
+      <LegalAcceptanceGate>
       <PermissionsProvider>
       <div className="app-shell">
         <aside className="sidebar">
@@ -347,6 +355,7 @@ function AdminApp(): React.ReactElement {
             <Route path="/settings/roles/:id/edit" element={<RoleFormPage />} />
             <Route path="/settings/users" element={<UsersPage />} />
             <Route path="/settings/audit" element={<AuditLogsPage />} />
+            <Route path="/settings/legal-documents" element={<LegalDocumentsSettingsPage />} />
             <Route path="/imports" element={<ImportsPage />} />
             <Route path="/imports/new" element={<ImportNewPage />} />
             <Route path="/imports/:id" element={<ImportDetailPage />} />
@@ -365,6 +374,7 @@ function AdminApp(): React.ReactElement {
         </main>
       </div>
       </PermissionsProvider>
+      </LegalAcceptanceGate>
     </SessionGate>
   );
 }

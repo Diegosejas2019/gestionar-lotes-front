@@ -1592,3 +1592,45 @@ export interface BackupRun {
   errorMessage?: string;
   createdAt: string;
 }
+
+// ---- Etapa 17: Documentos legales y aceptación ----
+
+export type LegalDocumentType = 'terms' | 'privacy_policy' | 'cookies_policy';
+export type LegalDocumentStatus = 'draft' | 'published' | 'archived';
+
+export interface LegalDocument {
+  _id: Id;
+  organizationId?: Id | null;
+  type: LegalDocumentType;
+  version: string;
+  title: string;
+  content: string;
+  status: LegalDocumentStatus;
+  requiresAcceptance: boolean;
+  publishedAt?: string | null;
+  effectiveFrom?: string | null;
+  createdBy?: Id | null;
+  updatedBy?: Id | null;
+  isDeleted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface LegalAcceptance {
+  _id: Id;
+  organizationId?: Id | null;
+  userId: Id;
+  legalDocumentId: Id | LegalDocument;
+  type: LegalDocumentType;
+  version: string;
+  acceptedAt: string;
+  ip?: string | null;
+  userAgent?: string | null;
+  createdAt: string;
+}
+
+export interface CurrentLegalDocumentsResponse {
+  documents: LegalDocument[];
+  acceptances: LegalAcceptance[];
+  missingRequiredDocuments: LegalDocument[];
+}

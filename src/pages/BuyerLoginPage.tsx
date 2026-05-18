@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { KeyRound } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getToken, saveToken } from '../api/apiClient';
 
 export function BuyerLoginPage(): React.ReactElement {
@@ -24,6 +24,11 @@ export function BuyerLoginPage(): React.ReactElement {
           <textarea value={draft} onChange={(event) => setDraft(event.target.value)} rows={6} required />
         </label>
         <button className="button" type="submit">Ingresar al portal</button>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', fontSize: 13 }}>
+          <Link to="/legal/terms">Términos</Link>
+          <Link to="/legal/privacy">Privacidad</Link>
+          <Link to="/legal/cookies">Cookies</Link>
+        </div>
       </form>
     </main>
   );
