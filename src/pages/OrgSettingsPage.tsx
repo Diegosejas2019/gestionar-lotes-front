@@ -63,15 +63,23 @@ export function OrgSettingsPage(): React.ReactElement {
       <PageHeader title="Configuración general" description="Parámetros globales de la organización." />
       {error && <ErrorMessage message={error} />}
 
-      <div className="filter-bar" style={{ marginBottom: '1rem' }}>
+      <nav className="settings-tabs">
         {TABS.map((t) => (
-          <button key={t} type="button" className={`button${tab === t ? ' button--primary' : ''}`} onClick={() => setTab(t)} style={{ marginRight: '0.5rem' }}>{t}</button>
+          <button
+            key={t}
+            type="button"
+            className={`settings-tab${tab === t ? ' settings-tab--active' : ''}`}
+            onClick={() => setTab(t)}
+          >
+            {t}
+          </button>
         ))}
-      </div>
+      </nav>
 
       <form onSubmit={handleSave} className="form">
         {tab === 'General' && (
-          <>
+          <div className="settings-panel">
+            <h2>General</h2>
             <div className="form-row">
               <div className="form-group">
                 <label>Moneda predeterminada</label>
@@ -87,9 +95,9 @@ export function OrgSettingsPage(): React.ReactElement {
             </div>
             <div className="form-group">
               <label>Monedas habilitadas</label>
-              <div className="form-row">
+              <div className="check-grid" style={{ gridTemplateColumns: 'repeat(2, minmax(120px, 1fr))' }}>
                 {(['ARS', 'USD'] as const).map((c) => (
-                  <label key={c} style={{ marginRight: '1rem' }}>
+                  <label key={c}>
                     <input type="checkbox" checked={(form.supportedCurrencies || ['ARS', 'USD']).includes(c)}
                       onChange={(e) => {
                         const current = form.supportedCurrencies || ['ARS', 'USD'];
@@ -99,51 +107,61 @@ export function OrgSettingsPage(): React.ReactElement {
                 ))}
               </div>
             </div>
-          </>
+          </div>
         )}
 
         {tab === 'Numeración' && (
-          <div className="form-row" style={{ flexWrap: 'wrap' }}>
-            {Object.entries({ salePrefix: 'Ventas', reservationPrefix: 'Reservas', quotationPrefix: 'Cotizaciones', receiptPrefix: 'Recibos', documentPrefix: 'Documentos', migrationBatchPrefix: 'Migración' }).map(([key, label]) => (
-              <div key={key} className="form-group" style={{ minWidth: '200px' }}>
-                <label>Prefijo {label}</label>
-                <input className="input" value={num[key] || ''} onChange={(e) => setNested('numberingConfig', key, e.target.value)} />
-              </div>
-            ))}
+          <div className="settings-panel">
+            <h2>Prefijos de numeración</h2>
+            <div className="form-grid--3">
+              {Object.entries({ salePrefix: 'Ventas', reservationPrefix: 'Reservas', quotationPrefix: 'Cotizaciones', receiptPrefix: 'Recibos', documentPrefix: 'Documentos', migrationBatchPrefix: 'Migración' }).map(([key, label]) => (
+                <div key={key} className="form-group">
+                  <label>Prefijo {label}</label>
+                  <input className="input" value={num[key] || ''} onChange={(e) => setNested('numberingConfig', key, e.target.value)} />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
         {tab === 'Pagos' && (
-          <div className="form-row" style={{ flexDirection: 'column', gap: '0.5rem' }}>
-            <label><input type="checkbox" checked={Boolean(pay.allowPartialPayments)} onChange={(e) => setNested('paymentConfig', 'allowPartialPayments', e.target.checked)} /> Permitir pagos parciales</label>
-            <label><input type="checkbox" checked={Boolean(pay.requireProofForTransfer)} onChange={(e) => setNested('paymentConfig', 'requireProofForTransfer', e.target.checked)} /> Requerir comprobante para transferencias</label>
-            <label><input type="checkbox" checked={Boolean(pay.requireCashAccountOnPaymentApproval)} onChange={(e) => setNested('paymentConfig', 'requireCashAccountOnPaymentApproval', e.target.checked)} /> Requerir caja al aprobar pago</label>
-            <label><input type="checkbox" checked={Boolean(pay.automaticCashMovementOnPaymentApproval)} onChange={(e) => setNested('paymentConfig', 'automaticCashMovementOnPaymentApproval', e.target.checked)} /> Movimiento de caja automático al aprobar</label>
+          <div className="settings-panel">
+            <h2>Opciones de pago</h2>
+            <div className="check-grid" style={{ gridTemplateColumns: 'repeat(2, minmax(220px, 1fr))' }}>
+              <label><input type="checkbox" checked={Boolean(pay.allowPartialPayments)} onChange={(e) => setNested('paymentConfig', 'allowPartialPayments', e.target.checked)} /> Permitir pagos parciales</label>
+              <label><input type="checkbox" checked={Boolean(pay.requireProofForTransfer)} onChange={(e) => setNested('paymentConfig', 'requireProofForTransfer', e.target.checked)} /> Requerir comprobante para transferencias</label>
+              <label><input type="checkbox" checked={Boolean(pay.requireCashAccountOnPaymentApproval)} onChange={(e) => setNested('paymentConfig', 'requireCashAccountOnPaymentApproval', e.target.checked)} /> Requerir caja al aprobar pago</label>
+              <label><input type="checkbox" checked={Boolean(pay.automaticCashMovementOnPaymentApproval)} onChange={(e) => setNested('paymentConfig', 'automaticCashMovementOnPaymentApproval', e.target.checked)} /> Movimiento de caja automático al aprobar</label>
+            </div>
           </div>
         )}
 
         {tab === 'Mora' && (
-          <div className="form-row" style={{ flexWrap: 'wrap' }}>
-            {[
-              ['lowSeverityOverdueInstallments', 'Cuotas mora leve'],
-              ['mediumSeverityOverdueInstallments', 'Cuotas mora media'],
-              ['highSeverityOverdueInstallments', 'Cuotas mora alta'],
-              ['criticalSeverityOverdueInstallments', 'Cuotas mora crítica'],
-              ['daysWithoutActionWarning', 'Días sin acción (aviso)'],
-            ].map(([key, label]) => (
-              <div key={key} className="form-group" style={{ minWidth: '200px' }}>
-                <label>{label}</label>
-                <input className="input" type="number" min={1} value={Number(del[key]) || ''} onChange={(e) => setNested('delinquencyConfig', key, parseInt(e.target.value))} />
-              </div>
-            ))}
-            <div className="form-group" style={{ width: '100%' }}>
+          <div className="settings-panel">
+            <h2>Configuración de mora</h2>
+            <div className="form-grid--3">
+              {[
+                ['lowSeverityOverdueInstallments', 'Cuotas mora leve'],
+                ['mediumSeverityOverdueInstallments', 'Cuotas mora media'],
+                ['highSeverityOverdueInstallments', 'Cuotas mora alta'],
+                ['criticalSeverityOverdueInstallments', 'Cuotas mora crítica'],
+                ['daysWithoutActionWarning', 'Días sin acción (aviso)'],
+              ].map(([key, label]) => (
+                <div key={key} className="form-group">
+                  <label>{label}</label>
+                  <input className="input" type="number" min={1} value={Number(del[key]) || ''} onChange={(e) => setNested('delinquencyConfig', key, parseInt(e.target.value))} />
+                </div>
+              ))}
+            </div>
+            <div className="check-grid" style={{ gridTemplateColumns: '1fr' }}>
               <label><input type="checkbox" checked={Boolean(del.autoCreateDelinquencyCases)} onChange={(e) => setNested('delinquencyConfig', 'autoCreateDelinquencyCases', e.target.checked)} /> Crear casos de mora automáticamente</label>
             </div>
           </div>
         )}
 
         {tab === 'Documentos' && (
-          <>
+          <div className="settings-panel">
+            <h2>Documentos</h2>
             <div className="form-group">
               <label>URL de logo</label>
               <input className="input" value={String(doc.organizationLogoUrl || '')} onChange={(e) => setNested('documentConfig', 'organizationLogoUrl', e.target.value)} />
@@ -152,35 +170,41 @@ export function OrgSettingsPage(): React.ReactElement {
               <label>Texto de pie de página</label>
               <textarea className="input" rows={3} value={String(doc.documentFooterText || '')} onChange={(e) => setNested('documentConfig', 'documentFooterText', e.target.value)} />
             </div>
-            <div className="form-row" style={{ flexDirection: 'column', gap: '0.5rem' }}>
+            <div className="check-grid" style={{ gridTemplateColumns: 'repeat(2, minmax(200px, 1fr))' }}>
               <label><input type="checkbox" checked={Boolean(doc.requireLegalDisclaimer)} onChange={(e) => setNested('documentConfig', 'requireLegalDisclaimer', e.target.checked)} /> Requerir aviso legal</label>
               <label><input type="checkbox" checked={Boolean(doc.allowDocumentAnnulment)} onChange={(e) => setNested('documentConfig', 'allowDocumentAnnulment', e.target.checked)} /> Permitir anulación de documentos</label>
             </div>
-          </>
+          </div>
         )}
 
         {tab === 'Migración' && (
-          <div className="form-row" style={{ flexDirection: 'column', gap: '0.5rem' }}>
-            <label><input type="checkbox" checked={Boolean(mig.allowPendingDebtMigrationDefault)} onChange={(e) => setNested('migrationConfig', 'allowPendingDebtMigrationDefault', e.target.checked)} /> Permitir migración con deuda pendiente (por defecto)</label>
-            <label><input type="checkbox" checked={Boolean(mig.requirePreviewBeforeExecute)} onChange={(e) => setNested('migrationConfig', 'requirePreviewBeforeExecute', e.target.checked)} /> Requerir previsualización antes de ejecutar</label>
-            <label><input type="checkbox" checked={Boolean(mig.requireConfirmationCheckbox)} onChange={(e) => setNested('migrationConfig', 'requireConfirmationCheckbox', e.target.checked)} /> Requerir checkbox de confirmación</label>
-            <label><input type="checkbox" checked={Boolean(mig.defaultChargeCurrentMonth)} onChange={(e) => setNested('migrationConfig', 'defaultChargeCurrentMonth', e.target.checked)} /> Cobrar mes corriente por defecto</label>
+          <div className="settings-panel">
+            <h2>Migración</h2>
+            <div className="check-grid" style={{ gridTemplateColumns: 'repeat(2, minmax(220px, 1fr))' }}>
+              <label><input type="checkbox" checked={Boolean(mig.allowPendingDebtMigrationDefault)} onChange={(e) => setNested('migrationConfig', 'allowPendingDebtMigrationDefault', e.target.checked)} /> Permitir migración con deuda pendiente (por defecto)</label>
+              <label><input type="checkbox" checked={Boolean(mig.requirePreviewBeforeExecute)} onChange={(e) => setNested('migrationConfig', 'requirePreviewBeforeExecute', e.target.checked)} /> Requerir previsualización antes de ejecutar</label>
+              <label><input type="checkbox" checked={Boolean(mig.requireConfirmationCheckbox)} onChange={(e) => setNested('migrationConfig', 'requireConfirmationCheckbox', e.target.checked)} /> Requerir checkbox de confirmación</label>
+              <label><input type="checkbox" checked={Boolean(mig.defaultChargeCurrentMonth)} onChange={(e) => setNested('migrationConfig', 'defaultChargeCurrentMonth', e.target.checked)} /> Cobrar mes corriente por defecto</label>
+            </div>
           </div>
         )}
 
         {tab === 'Comercial' && (
-          <div className="form-row" style={{ flexWrap: 'wrap' }}>
-            {[
-              ['defaultReservationDays', 'Días de reserva (default)'],
-              ['defaultQuotationValidityDays', 'Días de validez cotización'],
-              ['reservationExpiringSoonDays', 'Días alerta reserva por vencer'],
-              ['quotationExpiringSoonDays', 'Días alerta cotización por vencer'],
-            ].map(([key, label]) => (
-              <div key={key} className="form-group" style={{ minWidth: '200px' }}>
-                <label>{label}</label>
-                <input className="input" type="number" min={1} value={Number(com[key]) || ''} onChange={(e) => setNested('commercialConfig', key, parseInt(e.target.value))} />
-              </div>
-            ))}
+          <div className="settings-panel">
+            <h2>Configuración comercial</h2>
+            <div className="form-grid">
+              {[
+                ['defaultReservationDays', 'Días de reserva (default)'],
+                ['defaultQuotationValidityDays', 'Días de validez cotización'],
+                ['reservationExpiringSoonDays', 'Días alerta reserva por vencer'],
+                ['quotationExpiringSoonDays', 'Días alerta cotización por vencer'],
+              ].map(([key, label]) => (
+                <div key={key} className="form-group">
+                  <label>{label}</label>
+                  <input className="input" type="number" min={1} value={Number(com[key]) || ''} onChange={(e) => setNested('commercialConfig', key, parseInt(e.target.value))} />
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
