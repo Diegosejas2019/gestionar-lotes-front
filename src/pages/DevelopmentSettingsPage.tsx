@@ -56,46 +56,62 @@ export function DevelopmentSettingsPage(): React.ReactElement {
 
   return (
     <div className="page-container">
-      <PageHeader title={`Config: ${devName}`} description="Parámetros específicos para este barrio. Sobrescriben la configuración general." action={<button className="button" onClick={() => navigate('/settings/developments')}>Volver</button>} />
+      <PageHeader
+        title={`Config: ${devName}`}
+        description="Parámetros específicos para este barrio. Sobrescriben la configuración general."
+        action={<button className="button" onClick={() => navigate('/settings/developments')}>Volver</button>}
+      />
       {error && <ErrorMessage message={error} />}
       <form onSubmit={handleSave} className="form">
-        <div className="form-row">
-          <div className="form-group">
-            <label>Moneda predeterminada</label>
-            <select className="input" value={form.defaultCurrency || ''} onChange={(e) => set('defaultCurrency', e.target.value || null)}>
-              <option value="">Usar config. general</option>
-              <option value="ARS">ARS</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Día mensual de vencimiento (1-28)</label>
-            <input className="input" type="number" min={1} max={28} value={form.defaultMonthlyDueDay ?? ''} onChange={(e) => set('defaultMonthlyDueDay', e.target.value ? parseInt(e.target.value) : null)} />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label>Días de reserva</label>
-            <input className="input" type="number" min={1} value={form.defaultReservationDays ?? ''} onChange={(e) => set('defaultReservationDays', e.target.value ? parseInt(e.target.value) : null)} />
-          </div>
-          <div className="form-group">
-            <label>Días alerta reserva por vencer</label>
-            <input className="input" type="number" min={1} value={form.reservationExpiringSoonDays ?? ''} onChange={(e) => set('reservationExpiringSoonDays', e.target.value ? parseInt(e.target.value) : null)} />
-          </div>
-          <div className="form-group">
-            <label>Días validez cotización</label>
-            <input className="input" type="number" min={1} value={form.defaultQuotationValidityDays ?? ''} onChange={(e) => set('defaultQuotationValidityDays', e.target.value ? parseInt(e.target.value) : null)} />
-          </div>
-          <div className="form-group">
-            <label>Cantidad de cuotas (default)</label>
-            <input className="input" type="number" min={1} value={form.defaultInstallmentCount ?? ''} onChange={(e) => set('defaultInstallmentCount', e.target.value ? parseInt(e.target.value) : null)} />
+        <div className="settings-panel">
+          <h2>General</h2>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Moneda predeterminada</label>
+              <select className="input" value={form.defaultCurrency || ''} onChange={(e) => set('defaultCurrency', e.target.value || null)}>
+                <option value="">Usar config. general</option>
+                <option value="ARS">ARS</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Día mensual de vencimiento (1-28)</label>
+              <input className="input" type="number" min={1} max={28} value={form.defaultMonthlyDueDay ?? ''} onChange={(e) => set('defaultMonthlyDueDay', e.target.value ? parseInt(e.target.value) : null)} />
+            </div>
           </div>
         </div>
-        <div className="form-row" style={{ flexDirection: 'column', gap: '0.5rem' }}>
-          <label><input type="checkbox" checked={form.requireDebtFreeForDeed === true} onChange={(e) => set('requireDebtFreeForDeed', e.target.checked)} /> Requerir libre deuda para escriturar</label>
-          <label><input type="checkbox" checked={form.allowPendingDebtMigration === true} onChange={(e) => set('allowPendingDebtMigration', e.target.checked)} /> Permitir migración con deuda pendiente</label>
-          <label><input type="checkbox" checked={form.automaticCashMovementOnPaymentApproval === true} onChange={(e) => set('automaticCashMovementOnPaymentApproval', e.target.checked)} /> Movimiento de caja automático al aprobar pago</label>
+
+        <div className="settings-panel">
+          <h2>Plazos comerciales</h2>
+          <div className="form-grid--3">
+            <div className="form-group">
+              <label>Días de reserva</label>
+              <input className="input" type="number" min={1} value={form.defaultReservationDays ?? ''} onChange={(e) => set('defaultReservationDays', e.target.value ? parseInt(e.target.value) : null)} />
+            </div>
+            <div className="form-group">
+              <label>Días alerta reserva por vencer</label>
+              <input className="input" type="number" min={1} value={form.reservationExpiringSoonDays ?? ''} onChange={(e) => set('reservationExpiringSoonDays', e.target.value ? parseInt(e.target.value) : null)} />
+            </div>
+            <div className="form-group">
+              <label>Días validez cotización</label>
+              <input className="input" type="number" min={1} value={form.defaultQuotationValidityDays ?? ''} onChange={(e) => set('defaultQuotationValidityDays', e.target.value ? parseInt(e.target.value) : null)} />
+            </div>
+            <div className="form-group">
+              <label>Cantidad de cuotas (default)</label>
+              <input className="input" type="number" min={1} value={form.defaultInstallmentCount ?? ''} onChange={(e) => set('defaultInstallmentCount', e.target.value ? parseInt(e.target.value) : null)} />
+            </div>
+          </div>
         </div>
+
+        <div className="settings-panel">
+          <h2>Reglas de negocio</h2>
+          <div className="check-grid" style={{ gridTemplateColumns: 'repeat(2, minmax(220px, 1fr))' }}>
+            <label><input type="checkbox" checked={form.requireDebtFreeForDeed === true} onChange={(e) => set('requireDebtFreeForDeed', e.target.checked)} /> Requerir libre deuda para escriturar</label>
+            <label><input type="checkbox" checked={form.allowPendingDebtMigration === true} onChange={(e) => set('allowPendingDebtMigration', e.target.checked)} /> Permitir migración con deuda pendiente</label>
+            <label><input type="checkbox" checked={form.automaticCashMovementOnPaymentApproval === true} onChange={(e) => set('automaticCashMovementOnPaymentApproval', e.target.checked)} /> Movimiento de caja automático al aprobar pago</label>
+          </div>
+        </div>
+
         <div className="form-actions">
           <button type="submit" className="button button--primary" disabled={saving}>{saving ? 'Guardando...' : 'Guardar'}</button>
           <button type="button" className="button" onClick={() => navigate('/settings/developments')}>Cancelar</button>
