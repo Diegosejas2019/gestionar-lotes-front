@@ -56,80 +56,81 @@ export function BillingPage(): React.ReactElement {
   const isOverdue = subscription?.status === 'overdue';
 
   return (
-    <div>
+    <div className="page-container">
       <PageHeader title="Mi plan" />
 
       {isSuspended && (
-        <div style={{ background: '#fef2f2', border: '1px solid #fca5a5', borderRadius: 8, padding: '1rem', marginBottom: '1.5rem', color: '#991b1b' }}>
+        <div className="alert alert--danger" style={{ marginBottom: '1rem' }}>
           <strong>Tu cuenta está suspendida.</strong> {subscription?.suspensionReason ? `Motivo: ${subscription.suspensionReason}` : ''} Contactá al soporte para reactivarla.
         </div>
       )}
 
       {isOverdue && (
-        <div style={{ background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 8, padding: '1rem', marginBottom: '1.5rem', color: '#92400e' }}>
+        <div className="alert alert--warning" style={{ marginBottom: '1rem' }}>
           <strong>Tu suscripción está vencida.</strong> Regularizá el pago para mantener el acceso completo.
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '1.25rem' }}>
-          <h3 style={{ margin: '0 0 1rem 0' }}>Plan actual</h3>
+      <div className="billing-cards">
+        <div className="settings-panel">
+          <h2>Plan actual</h2>
           {plan ? (
             <>
-              <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: 4 }}>{plan.name}</div>
-              <div style={{ color: '#6b7280', marginBottom: 8 }}>{plan.description}</div>
-              <div style={{ fontSize: '1.25rem', color: '#2563eb', fontWeight: 600 }}>
-                {plan.currency} {plan.monthlyPrice.toLocaleString('es-AR')} / mes
-              </div>
+              <div className="billing-plan-name">{plan.name}</div>
+              <div className="text-muted">{plan.description}</div>
+              <div className="billing-plan-price">{plan.currency} {plan.monthlyPrice.toLocaleString('es-AR')} / mes</div>
             </>
           ) : (
-            <p style={{ color: '#6b7280' }}>Sin plan asignado. Contactá al soporte.</p>
+            <p className="text-muted">Sin plan asignado. Contactá al soporte.</p>
           )}
         </div>
 
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '1.25rem' }}>
-          <h3 style={{ margin: '0 0 1rem 0' }}>Estado de suscripción</h3>
+        <div className="settings-panel">
+          <h2>Estado de suscripción</h2>
           {subscription ? (
-            <dl style={{ margin: 0 }}>
-              <dt style={{ color: '#6b7280', fontSize: '0.85rem' }}>Estado</dt>
-              <dd style={{ margin: '0 0 0.75rem 0' }}><StatusBadge label={STATUS_LABELS[subscription.status] || subscription.status} /></dd>
+            <dl className="billing-dl">
+              <dt>Estado</dt>
+              <dd><StatusBadge label={STATUS_LABELS[subscription.status] || subscription.status} /></dd>
               {subscription.renewalDate && (
                 <>
-                  <dt style={{ color: '#6b7280', fontSize: '0.85rem' }}>Próxima renovación</dt>
-                  <dd style={{ margin: '0 0 0.75rem 0' }}><DateDisplay value={subscription.renewalDate} /></dd>
+                  <dt>Próxima renovación</dt>
+                  <dd><DateDisplay value={subscription.renewalDate} /></dd>
                 </>
               )}
               {subscription.trialEndsAt && (
                 <>
-                  <dt style={{ color: '#6b7280', fontSize: '0.85rem' }}>Prueba hasta</dt>
-                  <dd style={{ margin: 0 }}><DateDisplay value={subscription.trialEndsAt} /></dd>
+                  <dt>Prueba hasta</dt>
+                  <dd><DateDisplay value={subscription.trialEndsAt} /></dd>
                 </>
               )}
             </dl>
           ) : (
-            <p style={{ color: '#6b7280' }}>Sin suscripción activa.</p>
+            <p className="text-muted">Sin suscripción activa.</p>
           )}
         </div>
       </div>
 
       {usage && limits && (
-        <div style={{ background: '#fff', border: '1px solid #e5e7eb', borderRadius: 8, padding: '1.25rem', marginBottom: '1.5rem' }}>
-          <h3 style={{ margin: '0 0 1rem 0' }}>Uso vs límites</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1rem' }}>
+        <div className="settings-panel">
+          <h2>Uso vs límites</h2>
+          <div className="billing-usage-grid">
             {LIMIT_LABELS.map(({ usageKey, limitKey, label }) => {
               const used = usage[usageKey] as number;
               const max = limits[limitKey];
               const pct = percentages[limitKey] || 0;
               const isOver = max !== null && used >= (max ?? Infinity);
               return (
-                <div key={usageKey}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: 4 }}>
+                <div key={usageKey} className="billing-usage-item">
+                  <div className="billing-usage-label">
                     <span>{label}</span>
-                    <span style={{ color: isOver ? '#dc2626' : undefined }}>{used} / {max ?? '∞'}</span>
+                    <span className={isOver ? 'billing-usage-over' : ''}>{used} / {max ?? '∞'}</span>
                   </div>
                   {max !== null && max !== undefined && (
-                    <div style={{ background: '#e5e7eb', borderRadius: 4, height: 8 }}>
-                      <div style={{ background: isOver ? '#dc2626' : pct > 80 ? '#d97706' : '#2563eb', width: `${Math.min(100, pct)}%`, height: '100%', borderRadius: 4, transition: 'width 0.3s' }} />
+                    <div className="billing-progress-track">
+                      <div
+                        className={`billing-progress-bar${isOver ? ' billing-progress-bar--over' : pct > 80 ? ' billing-progress-bar--warn' : ''}`}
+                        style={{ width: `${Math.min(100, pct)}%` }}
+                      />
                     </div>
                   )}
                 </div>
