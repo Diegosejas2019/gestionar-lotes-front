@@ -35,7 +35,7 @@ export function ReportMigrationPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.migration();
-        setData((res as { data: MigrationData }).data);
+        setData(res as unknown as MigrationData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte de migración.');
       } finally {

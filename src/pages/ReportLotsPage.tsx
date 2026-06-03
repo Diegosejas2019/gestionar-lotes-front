@@ -39,7 +39,7 @@ export function ReportLotsPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.lots(params);
-        setData((res as { data: LotsData }).data);
+        setData(res as unknown as LotsData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte de lotes.');
       } finally {

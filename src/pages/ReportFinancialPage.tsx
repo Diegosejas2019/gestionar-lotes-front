@@ -39,7 +39,7 @@ export function ReportFinancialPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.financial(params);
-        setData((res as { data: FinancialData }).data);
+        setData(res as unknown as FinancialData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte financiero.');
       } finally {

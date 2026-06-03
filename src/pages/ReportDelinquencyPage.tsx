@@ -41,7 +41,7 @@ export function ReportDelinquencyPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.delinquency(params);
-        setData((res as { data: DelinquencyData }).data);
+        setData(res as unknown as DelinquencyData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte de mora.');
       } finally {

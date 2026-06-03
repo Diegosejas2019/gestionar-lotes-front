@@ -37,7 +37,7 @@ export function ReportCashAndExpensesPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.cashAndExpenses(params);
-        setData((res as { data: CashData }).data);
+        setData(res as unknown as CashData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte de caja y gastos.');
       } finally {

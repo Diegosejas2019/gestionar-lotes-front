@@ -59,7 +59,7 @@ export function ReportDeedsAndLegalPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.deedsAndLegal(params);
-        setData((res as { data: DeedsData }).data);
+        setData(res as unknown as DeedsData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte legal.');
       } finally {

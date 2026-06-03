@@ -36,7 +36,7 @@ export function ExecutiveDashboardPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await executiveDashboardApi.summary(params);
-        setSummary((res as { data: ExecutiveSummary }).data);
+        setSummary(res as unknown as ExecutiveSummary);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el dashboard ejecutivo.');
       } finally {

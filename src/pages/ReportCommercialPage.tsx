@@ -65,7 +65,7 @@ export function ReportCommercialPage(): React.ReactElement {
     void (async () => {
       try {
         const res = await reportsApi.commercial(params);
-        setData((res as { data: CommercialData }).data);
+        setData(res as unknown as CommercialData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar el reporte comercial.');
       } finally {
