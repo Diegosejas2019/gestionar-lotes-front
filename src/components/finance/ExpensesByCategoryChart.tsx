@@ -35,7 +35,7 @@ export function ExpensesByCategoryChart({ data }: Props): React.ReactElement {
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border, #e5e7eb)" horizontal={false} />
                 <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v: number) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(v)} />
                 <YAxis type="category" dataKey="label" tick={{ fontSize: 11 }} width={110} />
-                <Tooltip formatter={(value: number) => formatAmount(value, currency)} />
+                <Tooltip formatter={(value) => formatAmount(Number(value), currency)} />
                 <Bar dataKey="amount" name="Monto" radius={[0, 3, 3, 0]}>
                   {currencyData.map((_, i) => (
                     <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
