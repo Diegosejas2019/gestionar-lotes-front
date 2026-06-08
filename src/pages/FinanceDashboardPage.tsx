@@ -39,7 +39,7 @@ export function FinanceDashboardPage(): React.ReactElement {
   useEffect(() => {
     if (permissionsLoading) return;
 
-    if (!hasPermission('finance', 'view')) {
+    if (!hasPermission('cash', 'view')) {
       setLoading(false);
       setError('No tenés permisos para ver el dashboard financiero.');
       return;
