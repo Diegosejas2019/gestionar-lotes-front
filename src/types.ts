@@ -741,6 +741,54 @@ export interface FinanceDashboardSummary {
   workProjectsInProgress: number;
 }
 
+// ---- Finance Dashboard - tipos extendidos ----
+
+export interface MonthlyIncomeExpensePoint {
+  month: string;
+  currency: Currency;
+  income: number;
+  expense: number;
+  net: number;
+}
+
+export interface ExpenseByCategoryItem {
+  category: ExpenseCategory;
+  label: string;
+  currency: Currency;
+  amount: number;
+}
+
+export interface CashBalanceEvolutionPoint {
+  month: string;
+  currency: Currency;
+  balance: number;
+}
+
+export interface CashAccountSummaryItem {
+  id: string;
+  name: string;
+  type: CashAccountType;
+  typeLabel: string;
+  currency: Currency;
+  currentBalance: number;
+  enabled: boolean;
+  developmentName: string;
+}
+
+export type AlertSeverity = 'info' | 'warning' | 'danger';
+export type AlertEntityType = 'expense' | 'movement' | 'work_project' | 'cash_account';
+
+export interface FinancialAlert {
+  id: string;
+  type: string;
+  severity: AlertSeverity;
+  title: string;
+  description: string;
+  entityType: AlertEntityType;
+  entityId: string;
+  actionUrl: string;
+}
+
 // ---- Etapa 8: Mora, Refinanciación, Legal, Escrituración ----
 
 export type DelinquencyStatus = 'open' | 'monitoring' | 'notified' | 'in_agreement' | 'in_legal_review' | 'rescission_process' | 'resolved' | 'cancelled';
