@@ -54,8 +54,8 @@ export function CashBalanceEvolutionChart({ data }: Props): React.ReactElement {
                 <XAxis dataKey="month" tickFormatter={formatMonthLabel} tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 11 }} tickFormatter={(v: number) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(v)} />
                 <Tooltip
-                  formatter={(value: number) => formatAmount(value, currency)}
-                  labelFormatter={formatMonthLabel}
+                  formatter={(value) => formatAmount(Number(value), currency)}
+                  labelFormatter={(label: unknown) => formatMonthLabel(String(label))}
                 />
                 <Area type="monotone" dataKey="balance" name="Saldo" stroke={color} strokeWidth={2} fill={`url(#grad-${currency})`} dot={{ r: 3, fill: color }} />
               </AreaChart>
