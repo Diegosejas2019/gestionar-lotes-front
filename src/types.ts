@@ -775,16 +775,16 @@ export interface CashAccountSummaryItem {
   developmentName: string;
 }
 
-export type AlertSeverity = 'info' | 'warning' | 'danger';
-export type AlertEntityType = 'expense' | 'movement' | 'work_project' | 'cash_account';
+export type FinancialAlertSeverity = 'info' | 'warning' | 'danger';
+export type FinancialAlertEntityType = 'expense' | 'movement' | 'work_project' | 'cash_account';
 
 export interface FinancialAlert {
   id: string;
   type: string;
-  severity: AlertSeverity;
+  severity: FinancialAlertSeverity;
   title: string;
   description: string;
-  entityType: AlertEntityType;
+  entityType: FinancialAlertEntityType;
   entityId: string;
   actionUrl: string;
 }
