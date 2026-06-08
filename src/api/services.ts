@@ -230,9 +230,12 @@ export const workProjectsApi = {
 export const financeDashboardApi = {
   summary: () => apiGet<{ data: FinanceDashboardSummary }>('/api/finance-dashboard/summary'),
   cashBalances: () => apiGet<{ cashAccounts: CashAccount[] }>('/api/finance-dashboard/cash-balances'),
-  incomeExpenseByMonth: (params?: Record<string, string>) => apiGet<{ income: unknown[]; expenses: unknown[] }>('/api/finance-dashboard/income-expense-by-month', params),
-  expensesByCategory: () => apiGet<{ expensesByCategory: unknown[] }>('/api/finance-dashboard/expenses-by-category'),
-  workProjectsSummary: () => apiGet<{ workProjects: unknown[] }>('/api/finance-dashboard/work-projects-summary'),
+  cashAccountsSummary: () => apiGet<{ cashAccountsSummary: CashAccountSummaryItem[] }>('/api/finance-dashboard/cash-accounts-summary'),
+  incomeExpenseByMonth: (params?: Record<string, string>) => apiGet<{ monthlyData: MonthlyIncomeExpensePoint[] }>('/api/finance-dashboard/income-expense-by-month', params),
+  expensesByCategory: () => apiGet<{ expensesByCategory: ExpenseByCategoryItem[] }>('/api/finance-dashboard/expenses-by-category'),
+  cashBalanceEvolution: (params?: Record<string, string>) => apiGet<{ evolution: CashBalanceEvolutionPoint[] }>('/api/finance-dashboard/cash-balance-evolution', params),
+  workProjectsSummary: () => apiGet<{ workProjects: WorkProjectSummaryItem[] }>('/api/finance-dashboard/work-projects-summary'),
+  financialAlerts: () => apiGet<{ alerts: FinancialAlert[] }>('/api/finance-dashboard/financial-alerts'),
 };
 
 // ---- Etapa 8: Mora, Refinanciación, Legal, Escrituración ----
