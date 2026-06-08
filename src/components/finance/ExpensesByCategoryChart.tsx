@@ -33,7 +33,7 @@ export function ExpensesByCategoryChart({ data }: Props): React.ReactElement {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={currencyData} layout="vertical" margin={{ top: 4, right: 16, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border, #e5e7eb)" horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v: number) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(v)} />
+                <XAxis type="number" tick={{ fontSize: 11 }} tickFormatter={(v) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(Number(v))} />
                 <YAxis type="category" dataKey="label" tick={{ fontSize: 11 }} width={110} />
                 <Tooltip formatter={(value) => formatAmount(Number(value), currency)} />
                 <Bar dataKey="amount" name="Monto" radius={[0, 3, 3, 0]}>
