@@ -56,7 +56,11 @@ async function parseResponse<T>(response: Response): Promise<T> {
     throw new ApiError(payload?.message || fallback, response.status);
   }
 
-  return (payload?.data || {}) as T;
+  if (!payload) return {} as T;
+  if (payload.data !== undefined) return payload.data as T;
+
+  const { success: _success, message: _message, ...data } = payload as ApiEnvelope<T> & Record<string, unknown>;
+  return data as T;
 }
 
 export async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
