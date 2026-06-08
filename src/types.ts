@@ -789,6 +789,20 @@ export interface FinancialAlert {
   actionUrl: string;
 }
 
+export interface WorkProjectSummaryItem {
+  _id: string;
+  name: string;
+  developmentName: string;
+  status: WorkProjectStatus;
+  statusLabel: string;
+  estimatedBudget: number;
+  currency: string;
+  spent: number;
+  remaining: number;
+  progressPercentage: number;
+  estimatedEndDate?: string | null;
+}
+
 // ---- Etapa 8: Mora, Refinanciación, Legal, Escrituración ----
 
 export type DelinquencyStatus = 'open' | 'monitoring' | 'notified' | 'in_agreement' | 'in_legal_review' | 'rescission_process' | 'resolved' | 'cancelled';
