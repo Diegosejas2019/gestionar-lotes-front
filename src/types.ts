@@ -741,6 +741,14 @@ export interface FinanceDashboardSummary {
   workProjectsInProgress: number;
 }
 
+export interface CommercialFunnelEvolutionPoint {
+  month: string;
+  leads: number;
+  quotations: number;
+  reservations: number;
+  sales: number;
+}
+
 // ---- Finance Dashboard - tipos extendidos ----
 
 export interface MonthlyIncomeExpensePoint {

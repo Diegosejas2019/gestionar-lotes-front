@@ -779,6 +779,15 @@ input[type="checkbox"] {
   gap: 16px;
 }
 
+.commercial-charts-row {
+  align-items: stretch;
+}
+
+.commercial-chart-block {
+  min-height: 260px;
+  margin-top: 4px;
+}
+
 /* ── STATES ── */
 
 .empty-state,
@@ -1314,7 +1323,7 @@ input[type="checkbox"] {
   margin: 0 0 10px;
 }
 
-.finance-chart-tooltip {
+.chart-tooltip {
   min-width: 190px;
   padding: 12px 13px;
   border: 1px solid var(--border-light);
@@ -1324,43 +1333,43 @@ input[type="checkbox"] {
   color: #e2e8f0;
 }
 
-.finance-chart-tooltip__label {
+.chart-tooltip__label {
   margin-bottom: 9px;
   color: #f8fafc;
   font-size: 12px;
   font-weight: 700;
 }
 
-.finance-chart-tooltip__rows {
+.chart-tooltip__rows {
   display: grid;
   gap: 7px;
 }
 
-.finance-chart-tooltip__row,
-.finance-chart-tooltip__name {
+.chart-tooltip__row,
+.chart-tooltip__name {
   display: flex;
   align-items: center;
 }
 
-.finance-chart-tooltip__row {
+.chart-tooltip__row {
   justify-content: space-between;
   gap: 18px;
   color: var(--text-muted);
   font-size: 12px;
 }
 
-.finance-chart-tooltip__row strong {
+.chart-tooltip__row strong {
   color: #f8fafc;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.finance-chart-tooltip__name {
+.chart-tooltip__name {
   gap: 7px;
   min-width: 0;
 }
 
-.finance-chart-tooltip__dot {
+.chart-tooltip__dot {
   width: 8px;
   height: 8px;
   border-radius: 999px;

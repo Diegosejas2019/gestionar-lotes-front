@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { commercialDashboardApi } from '../api/services';
+import { CommercialFunnelEvolutionChart } from '../components/commercial/CommercialFunnelEvolutionChart';
+import { CommercialLeadsBySourceChart } from '../components/commercial/CommercialLeadsBySourceChart';
+import { CommercialLeadsByStatusChart } from '../components/commercial/CommercialLeadsByStatusChart';
 import { DataTable } from '../components/DataTable';
 import { DateDisplay } from '../components/DateDisplay';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { LoadingState } from '../components/LoadingState';
 import { PageHeader } from '../components/PageHeader';
 import { StatusBadge } from '../components/StatusBadge';
-import type { Quotation, Reservation } from '../types';
+import type { CommercialFunnelEvolutionPoint, Quotation, Reservation } from '../types';
 import { asBuyer, asDevelopment, asLead, asLot, lotLabel, partyName } from '../utils/format';
-import { leadSourceLabels, leadStatusLabels, quotationStatusLabels, reservationStatusLabels } from '../utils/labels';
+import { quotationStatusLabels, reservationStatusLabels } from '../utils/labels';
 
 type Summary = Awaited<ReturnType<typeof commercialDashboardApi.summary>>;
 type GroupItem = { _id: string; count: number };
@@ -18,6 +21,7 @@ export function CommercialDashboardPage(): React.ReactElement {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [byStatus, setByStatus] = useState<GroupItem[]>([]);
   const [bySource, setBySource] = useState<GroupItem[]>([]);
+  const [funnelEvolution, setFunnelEvolution] = useState<CommercialFunnelEvolutionPoint[]>([]);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [quotations, setQuotations] = useState<Quotation[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,16 +30,18 @@ export function CommercialDashboardPage(): React.ReactElement {
   useEffect(() => {
     async function load(): Promise<void> {
       try {
-        const [summaryData, statusData, sourceData, reservationData, quotationData] = await Promise.all([
+        const [summaryData, statusData, sourceData, funnelData, reservationData, quotationData] = await Promise.all([
           commercialDashboardApi.summary(),
           commercialDashboardApi.leadsByStatus(),
           commercialDashboardApi.leadsBySource(),
+          commercialDashboardApi.funnelEvolution({ months: '6' }),
           commercialDashboardApi.activeReservations(),
           commercialDashboardApi.quotations(),
         ]);
         setSummary(summaryData);
         setByStatus(statusData.items || []);
         setBySource(sourceData.items || []);
+        setFunnelEvolution(funnelData.monthlyData || []);
         setReservations(reservationData.reservations || []);
         setQuotations(quotationData.quotations || []);
       } catch (err) {
@@ -66,20 +72,18 @@ export function CommercialDashboardPage(): React.ReactElement {
       <section className="metric-grid">
         {cards.map(([label, value]) => <article className="metric-card" key={String(label)}><span>{label}</span><strong>{value ?? 0}</strong></article>)}
       </section>
-      <section className="two-column">
+      <section className="panel">
+        <h2>Embudo comercial - últimos 6 meses</h2>
+        <CommercialFunnelEvolutionChart data={funnelEvolution} />
+      </section>
+      <section className="two-column commercial-charts-row">
         <article className="panel">
           <h2>Leads por estado</h2>
-          <DataTable rows={byStatus} getRowKey={(item) => item._id || 'sin-estado'} emptyTitle="Sin datos." columns={[
-            { key: 'label', header: 'Estado', render: (item) => leadStatusLabels[item._id as keyof typeof leadStatusLabels] || item._id || '-' },
-            { key: 'count', header: 'Cantidad', render: (item) => item.count },
-          ]} />
+          <CommercialLeadsByStatusChart data={byStatus} />
         </article>
         <article className="panel">
           <h2>Leads por origen</h2>
-          <DataTable rows={bySource} getRowKey={(item) => item._id || 'sin-origen'} emptyTitle="Sin datos." columns={[
-            { key: 'label', header: 'Origen', render: (item) => leadSourceLabels[item._id as keyof typeof leadSourceLabels] || item._id || '-' },
-            { key: 'count', header: 'Cantidad', render: (item) => item.count },
-          ]} />
+          <CommercialLeadsBySourceChart data={bySource} />
         </article>
       </section>
       <section className="panel">

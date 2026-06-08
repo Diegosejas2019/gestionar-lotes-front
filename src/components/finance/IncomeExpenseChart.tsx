@@ -5,13 +5,13 @@ import {
   CHART_AXIS_STROKE,
   CHART_AXIS_TICK,
   CHART_GRID_STROKE,
+  ChartTooltip,
   EXPENSE_COLOR,
-  FinanceTooltip,
   INCOME_COLOR,
   formatMoneyCompact,
   formatMoneyFull,
   formatMonthLabel,
-} from './chartTheme';
+} from '../charts/chartTheme';
 
 type Props = {
   data: MonthlyIncomeExpensePoint[];
@@ -57,7 +57,7 @@ export function IncomeExpenseChart({ data }: Props): React.ReactElement {
                     if (!point) return null;
 
                     return (
-                      <FinanceTooltip
+                      <ChartTooltip
                         active={active}
                         title={formatMonthLabel(String(label))}
                         rows={[

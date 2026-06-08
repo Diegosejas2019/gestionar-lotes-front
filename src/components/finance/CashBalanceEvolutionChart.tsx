@@ -6,11 +6,11 @@ import {
   CHART_AXIS_STROKE,
   CHART_AXIS_TICK,
   CHART_GRID_STROKE,
-  FinanceTooltip,
+  ChartTooltip,
   formatMoneyCompact,
   formatMoneyFull,
   formatMonthLabel,
-} from './chartTheme';
+} from '../charts/chartTheme';
 
 type Props = {
   data: CashBalanceEvolutionPoint[];
@@ -64,7 +64,7 @@ export function CashBalanceEvolutionChart({ data }: Props): React.ReactElement {
                     if (!point) return null;
 
                     return (
-                      <FinanceTooltip
+                      <ChartTooltip
                         active={active}
                         title={formatMonthLabel(String(label))}
                         rows={[

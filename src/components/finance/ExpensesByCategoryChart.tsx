@@ -6,10 +6,10 @@ import {
   CHART_AXIS_STROKE,
   CHART_AXIS_TICK,
   CHART_GRID_STROKE,
-  FinanceTooltip,
+  ChartTooltip,
   formatMoneyCompact,
   formatMoneyFull,
-} from './chartTheme';
+} from '../charts/chartTheme';
 
 type Props = {
   data: ExpenseByCategoryItem[];
@@ -58,7 +58,7 @@ export function ExpensesByCategoryChart({ data }: Props): React.ReactElement {
                     if (!point) return null;
 
                     return (
-                      <FinanceTooltip
+                      <ChartTooltip
                         active={active}
                         title={point.label}
                         rows={[

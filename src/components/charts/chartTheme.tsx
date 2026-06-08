@@ -48,6 +48,13 @@ export function formatMonthLabel(month: string): string {
   return `${MONTH_NAMES[m] ?? m} ${year.slice(2)}`;
 }
 
+export function formatCompactNumber(value: number): string {
+  return new Intl.NumberFormat('es-AR', {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(value);
+}
+
 export function formatMoneyCompact(value: number, currency: string): string {
   const abs = Math.abs(value);
   const prefix = currency === 'ARS' ? '$' : currency;
@@ -76,24 +83,24 @@ type TooltipRow = {
   color?: string;
 };
 
-type FinanceTooltipProps = {
+type ChartTooltipProps = {
   active?: boolean;
   label?: ReactNode;
   title?: string;
   rows: TooltipRow[];
 };
 
-export function FinanceTooltip({ active, label, title, rows }: FinanceTooltipProps): React.ReactElement | null {
+export function ChartTooltip({ active, label, title, rows }: ChartTooltipProps): React.ReactElement | null {
   if (!active) return null;
 
   return (
-    <div className="finance-chart-tooltip">
-      <div className="finance-chart-tooltip__label">{title ?? label}</div>
-      <div className="finance-chart-tooltip__rows">
+    <div className="chart-tooltip">
+      <div className="chart-tooltip__label">{title ?? label}</div>
+      <div className="chart-tooltip__rows">
         {rows.map((row) => (
-          <div className="finance-chart-tooltip__row" key={row.label}>
-            <span className="finance-chart-tooltip__name">
-              {row.color && <span className="finance-chart-tooltip__dot" style={{ background: row.color }} />}
+          <div className="chart-tooltip__row" key={row.label}>
+            <span className="chart-tooltip__name">
+              {row.color && <span className="chart-tooltip__dot" style={{ background: row.color }} />}
               {row.label}
             </span>
             <strong>{row.value}</strong>
