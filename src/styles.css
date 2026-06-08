@@ -1504,12 +1504,21 @@ input[type="checkbox"] {
   .metric-grid--small,
   .stats-grid,
   .dashboard-grid,
+  .finance-dashboard-grid,
   .filter-bar,
   .form-grid,
   .form-grid--3,
   .check-grid,
   .detail-list {
     grid-template-columns: 1fr;
+  }
+
+  .finance-charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  .finance-dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .span-2 {
