@@ -52,7 +52,7 @@ export function CashBalanceEvolutionChart({ data }: Props): React.ReactElement {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border, #e5e7eb)" />
                 <XAxis dataKey="month" tickFormatter={formatMonthLabel} tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} tickFormatter={(v: number) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(v)} />
+                <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => new Intl.NumberFormat('es-AR', { notation: 'compact', maximumFractionDigits: 1 }).format(Number(v))} />
                 <Tooltip
                   formatter={(value) => formatAmount(Number(value), currency)}
                   labelFormatter={(label: unknown) => formatMonthLabel(String(label))}
