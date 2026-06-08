@@ -22,7 +22,7 @@ import type {
 } from '../types';
 
 export function FinanceDashboardPage(): React.ReactElement {
-  const { hasPermission } = usePermissions();
+  const { hasPermission, loading: permissionsLoading } = usePermissions();
 
   const [summary, setSummary] = useState<FinanceDashboardSummary | null>(null);
   const [cashAccounts, setCashAccounts] = useState<CashAccountSummaryItem[]>([]);
