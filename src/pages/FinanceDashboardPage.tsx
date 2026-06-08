@@ -80,7 +80,7 @@ export function FinanceDashboardPage(): React.ReactElement {
     }
 
     void load();
-  }, [hasPermission]);
+  }, [hasPermission, permissionsLoading]);
 
   if (loading) return <LoadingState />;
 
