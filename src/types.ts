@@ -306,6 +306,9 @@ export interface DashboardSummary {
   availableLots: number;
   reservedLots: number;
   soldLots: number;
+  blockedLots?: number;
+  cancelledLots?: number;
+  deededLots?: number;
   activeSales: number;
   totalSold: number;
   totalCollected: number;
@@ -317,6 +320,7 @@ export interface DashboardSummary {
   pendingBalanceByCurrency?: Partial<Record<Currency, number>>;
   overdueBalanceByCurrency?: Partial<Record<Currency, number>>;
   paymentRequestsByCurrency?: Partial<Record<Currency, number>>;
+  lotsByStatus?: Partial<Record<LotStatus | string, number>>;
 }
 
 export interface LotsMapSummary {
@@ -747,6 +751,15 @@ export interface CommercialFunnelEvolutionPoint {
   quotations: number;
   reservations: number;
   sales: number;
+}
+
+export interface DashboardOverviewEvolutionPoint {
+  month: string;
+  sales: number;
+  collected: number;
+  overdueInstallments: number;
+  salesByCurrency?: Partial<Record<Currency, number>>;
+  collectedByCurrency?: Partial<Record<Currency, number>>;
 }
 
 // ---- Finance Dashboard - tipos extendidos ----

@@ -4,16 +4,20 @@ import { dashboardApi } from '../api/services';
 import { CurrencyAmount, CurrencyTotals } from '../components/CurrencyAmount';
 import { DataTable } from '../components/DataTable';
 import { DateDisplay } from '../components/DateDisplay';
+import { DashboardLotsStatusChart } from '../components/dashboard/DashboardLotsStatusChart';
+import { DashboardOverviewEvolutionChart } from '../components/dashboard/DashboardOverviewEvolutionChart';
+import { DashboardSalesCollectionChart } from '../components/dashboard/DashboardSalesCollectionChart';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { LoadingState } from '../components/LoadingState';
 import { PageHeader } from '../components/PageHeader';
 import { StatusBadge } from '../components/StatusBadge';
-import type { DashboardSummary, Installment } from '../types';
+import type { DashboardOverviewEvolutionPoint, DashboardSummary, Installment } from '../types';
 import { asBuyer, asDevelopment, asLot, buyerName, lotLabel } from '../utils/format';
 
 export function DashboardPage(): React.ReactElement {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
   const [overdue, setOverdue] = useState<Installment[]>([]);
+  const [overviewEvolution, setOverviewEvolution] = useState<DashboardOverviewEvolutionPoint[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -22,13 +26,15 @@ export function DashboardPage(): React.ReactElement {
     async function load(): Promise<void> {
       try {
         setLoading(true);
-        const [summaryData, overdueData] = await Promise.all([
+        const [summaryData, overdueData, overviewData] = await Promise.all([
           dashboardApi.summary(),
           dashboardApi.overdueInstallments(),
+          dashboardApi.overviewEvolution({ months: '6' }),
         ]);
         if (!ignore) {
           setSummary(summaryData);
           setOverdue(overdueData.installments || []);
+          setOverviewEvolution(overviewData.monthlyData || []);
         }
       } catch (err) {
         if (!ignore) setError(err instanceof Error ? err.message : 'No se pudo cargar el dashboard.');
@@ -66,6 +72,20 @@ export function DashboardPage(): React.ReactElement {
             <strong>{value ?? 0}</strong>
           </article>
         ))}
+      </section>
+      <section className="panel">
+        <h2>Evolucion general - ultimos 6 meses</h2>
+        <DashboardOverviewEvolutionChart data={overviewEvolution} />
+      </section>
+      <section className="two-column dashboard-charts-row">
+        <article className="panel">
+          <h2>Estado de lotes</h2>
+          <DashboardLotsStatusChart summary={summary} />
+        </article>
+        <article className="panel">
+          <h2>Ventas y cobranza</h2>
+          <DashboardSalesCollectionChart summary={summary} />
+        </article>
       </section>
       <section className="panel">
         <h2>Alertas de cuotas vencidas</h2>

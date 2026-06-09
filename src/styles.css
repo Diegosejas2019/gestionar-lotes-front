@@ -788,6 +788,30 @@ input[type="checkbox"] {
   margin-top: 4px;
 }
 
+.dashboard-charts-row {
+  align-items: stretch;
+}
+
+.dashboard-charts-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dashboard-chart-block {
+  min-height: 260px;
+  margin-top: 4px;
+}
+
+.dashboard-chart-currency-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+}
+
 /* ── STATES ── */
 
 .empty-state,
